@@ -1,4 +1,6 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<%
+=begin%>
+ <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <%= link_to "#", class: "navbar-brand" do %>
       <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
@@ -34,3 +36,22 @@
     </div>
   </div>
 </div>
+<%
+=end%>
+
+<nav class="navbar navbar-dark navbar-expand-md bg-dark py-3" style="--bs-primary: #fd0dd7;--bs-primary-rgb: 253,13,215;">
+    <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div id="navcol-5" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Gaming PC&#39;s</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Gaming Consoles</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Games</a></li>
+                <li><%= link_to "Login", new_user_session_path, class: "btn btn-primary ms-md-2", style: "background: #6441a5; border: none;"%></li>
+            <%
+=begin%>
+ </ul>a class="btn btn-primary ms-md-2" role="button" href="#" style="background: #6441a5;">Launch App</a>
+<%
+=end%>
+        </div>
+    </div>
+</nav>
