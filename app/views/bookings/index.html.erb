@@ -1,2 +1,31 @@
-<h1>Bookings#index</h1>
-<p>Find me in app/views/bookings/index.html.erb</p>
+<h1>Bookings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart.each do |c| %>
+      <tr>
+        <td><%= c.product.name %></td>
+        <td><%= c.start_date.strftime("%B %d, %Y") %></td>
+        <td><%= c.end_date.strftime("%B %d, %Y") %></td>
+        <td><%= number_to_currency(c.price) %></td>
+        <td><%= link_to 'Remove from cart', cart_path(c.product_id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">Total:</td>
+      <td><%= number_to_currency(@cart.sum(&:price)) %></td>
+      <td><%= link_to 'Checkout', new_order_path %></td>
+    </tr>
+  </tfoot>
+</table>

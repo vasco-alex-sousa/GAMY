@@ -1,7 +1,41 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# Create 5 Gaming PCs
+5.times do
+  Product.create(
+    name: "Gaming PC #{rand(1..100)}",
+    description: "A powerful gaming PC for the ultimate gaming experience",
+    price: rand(500..3000),
+    product_type: "Gaming PC",
+    pc_type: ["Laptop", "Desktop"].sample,
+    pc_brand: ["Dell", "HP", "Asus", "Acer"].sample,
+    bought_year: rand(2013..2023),
+    cpu: ["Intel Core i7", "AMD Ryzen 7"].sample,
+    gpu: ["Nvidia GeForce RTX 3080", "AMD Radeon RX 6800 XT"].sample,
+    internal_storage: "#{rand(128..1024)} GB",
+    ram: "#{rand(4..32)} GB"
+  )
+end
+
+# Create 5 Consoles
+5.times do
+  Product.create(
+    name: "Console #{rand(1..100)}",
+    description: "The latest gaming console for non-stop entertainment",
+    price: rand(200..700),
+    product_type: "Console",
+    console_brand: ["Sony", "Microsoft", "Nintendo"].sample,
+    console_model: ["Playstation 5", "Playstation 4", "Xbox Series S", "Xbox Series X", "Xbox One", "Nintendo Switch"].sample,
+    console_submodel: ["Normal", "Pro", "Collector's Edition"],
+    bought_year: rand(2013..2023)
+  )
+end
+
+# Create 5 Games
+5.times do
+  Product.create(
+    name: "Game #{rand(1..100)}",
+    description: "An exciting game to keep you entertained for hours",
+    price: rand(20..80),
+    product_type: "Game",
+    platform: ["Playstation 5", "Playstation 4", "Xbox Series S", "Xbox Series X", "Xbox One", "Nintendo Switch"].sample
+  )
+end

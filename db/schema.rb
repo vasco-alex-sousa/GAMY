@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_145418) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_27_175360) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_145418) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "product_type"
+    t.string "pc_type"
+    t.string "pc_brand"
+    t.integer "bought_year"
+    t.string "cpu"
+    t.string "gpu"
+    t.string "internal_storage"
+    t.string "ram"
+    t.string "console_brand"
+    t.string "console_model"
+    t.string "console_submodel"
+    t.string "platform"
+    t.integer "release_year"
   end
 
   create_table "reviews", force: :cascade do |t|
