@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'home/index'
+  get 'users/index'
+  get 'reviews/create'
+  get 'bookings/index'
+  get 'bookings/create'
+  get 'bookings/destroy'
+  get 'categories/index'
   get 'products/index'
   get 'products/show'
   get 'products/new'
