@@ -1,38 +1,52 @@
-<h1><%= @product.name if @product %></h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h1><%= @product.name if @product %></h1>
 
-<p><%= @product.description if @product %></p>
+          <p><%= @product.description if @product %></p>
 
-<h2>Reviews</h2>
+          <h2>Reviews</h2>
 
-<% if @product.reviews.any? %>
-  <ul>
-    <% @product.reviews.each do |review| %>
-      <li>
-        <strong><%= review.rating %> stars</strong>
-        <%= review.comment %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No reviews yet.</p>
-<% end %>
+          <% if @product.reviews.any? %>
+            <ul>
+              <% @product.reviews.each do |review| %>
+                <li>
+                  <strong><%= review.rating %> stars</strong>
+                  <%= review.comment %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No reviews yet.</p>
+          <% end %>
 
-<h2>Add a review</h2>
+          <h2>Add a review</h2>
 
-<%= form_for [@product, @review] do |f| %>
-  <%= f.label :rating %>
-  <%= f.number_field :rating, min: 1, max: 5 %>
+          <%= form_for [@product, @review] do |f| %>
+            <div class="form-group">
+              <%= f.label :rating %>
+              <%= f.number_field :rating, min: 1, max: 5, class: "form-control" %>
+            </div>
 
-  <%= f.label :comment %>
-  <%= f.text_area :comment %>
+            <div class="form-group">
+              <%= f.label :comment %>
+              <%= f.text_area :comment, class: "form-control" %>
+            </div>
 
-  <%= f.submit 'Submit' %>
-<% end %>
+            <%= f.submit 'Submit', class: "btn btn-primary" %>
+          <% end %>
 
-<h2>Bookings</h2>
+          <h2>Bookings</h2>
 
-<%= render partial: 'bookings/form', locals: {product: @product, booking: @booking} %>
+          <%= render partial: 'bookings/form', locals: {product: @product, booking: @booking} %>
 
-<%= button_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+          <%= button_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-warning' %>
+          <%= link_to 'Back', products_path, class: 'btn btn-secondary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+
 <h1>Products</h1>
 
 <%= form_tag products_path, :method => 'get' do %>
@@ -6,18 +7,15 @@
   <%= submit_tag 'Search' %>
 <% end %>
 
-<ul>
+<div class="product-cards">
   <% @products.each do |product| %>
-    <li>
-      <%= link_to product.name, product_path(product) %>
-
-
-      <%= product.description %>
-
-
-      <%= number_to_currency(product.price) %>
-    </li>
+    <div class="product-card">
+      <div class="product-card__name"><%= link_to product.name, product_path(product) %></div>
+      <div class="product-card__description"><%= product.description %></div>
+      <div class="product-card__price"><%= number_to_currency(product.price)  %><h6>/day</h6></div>
+      <%= link_to "Details", product_path(product), class: "btn btn-primary" %>
+    </div>
   <% end %>
-</ul>
+</div>
 
 <%= link_to 'New Product', new_product_path %>
