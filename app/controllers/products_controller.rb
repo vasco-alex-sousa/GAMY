@@ -8,10 +8,11 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.includes(bookings: :reviews).find(params[:id])
+    @product = Product.find(params[:id])
     @review = Review.new
     @booking = Booking.new
   end
+
 
   def new
     @product = Product.new
@@ -19,8 +20,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.user = current_user
     if @product.save
-      redirect_to @product
+      redirect_to user_path(current_user)
     else
       render 'new'
     end

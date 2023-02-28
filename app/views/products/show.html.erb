@@ -19,17 +19,11 @@
 
 <h2>Add a review</h2>
 
-<%= form_for [@product, @review] do |f| %>
-  <%= f.label :rating %>
-  <%= f.number_field :rating, min: 1, max: 5 %>
-
-  <%= f.label :comment %>
-  <%= f.text_area :comment %>
-
-  <%= f.submit 'Submit' %>
+<% if current_user.present? && @product.bookings.where(user: current_user).any? %>
+  <%= render 'reviews/form', review: @review %>
+<% else %>
+  <p>You need to book this product before you can review it.</p>
 <% end %>
-
-<h2>Bookings</h2>
 
 <%= render partial: 'bookings/form', locals: {product: @product, booking: @booking} %>
 
