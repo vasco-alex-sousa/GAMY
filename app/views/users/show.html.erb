@@ -1,3 +1,34 @@
 <h1>User Profile</h1>
-<p><%= @user.email %></p>
-<p><%= link_to 'Edit Profile', edit_user_registration_path %></p>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <%= link_to "My Listings", "#listings", class: "nav-link active", data: {toggle: "tab"} %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Bookings", "#bookings", class: "nav-link", data: {toggle: "tab"} %>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div id="listings" class="tab-pane active">
+    <% if @listings.nil? %>
+      <p>No listings found.</p>
+    <% else %>
+      <% @listings.each do |listing| %>
+        <p><%= link_to listing.name, product_path(listing) %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="bookings" class="tab-pane">
+    <% if @bookings.nil? %>
+      <p>No listings found.</p>
+    <% else %>
+      <% @bookings.each do |booking| %>
+        <p><%= booking.start_date %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+<% @bookings.each do |booking| %>
+        <p><%= booking.start_date %></p>
+      <% end %>
