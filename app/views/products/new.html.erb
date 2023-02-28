@@ -1,145 +1,16 @@
-<h1>Add New Gaming Gear</h1>
+<h1>New Product</h1>
 
-<%= form_with url: products_new_path, method: :post, local: true, model: @product, local: true do |form| %>
-  <p>
-    <%= form.label :name %>
+<%= form_for @product do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
 
-    <%= form.text_field :name %>
-  </p>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
 
-  <p>
-    <%= form.label :description %>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
 
-    <%= form.text_area :description %>
-  </p>
-
-  <p>
-    <%= form.label :price %>
-
-    <%= form.text_field :price %>
-  </p>
-
-  <p>
-    <%= form.label :product_type %>
-
-    <%= form.select :product_type, ["Gaming PC", "Console", "Game"], id: "product_type_select" %>
-  </p>
-
-  <!-- Fields for Gaming PCs -->
-  <div class="gaming-pc-fields" style="<%= @product.product_type == "Gaming PC" ? 'display:block;' : 'display:none;' %>">
-    <p>
-      <%= form.label :pc_type %>
-
-      <%= form.select :pc_type, ["Laptop", "Desktop"], selected: @product.pc_type %>
-    </p>
-
-    <p>
-      <%= form.label :pc_brand %>
-
-      <%= form.text_field :pc_brand, value: @product.pc_brand %>
-    </p>
-
-    <p>
-      <%= form.label :bought_year %>
-
-      <%= form.text_field :bought_year, value: @product.bought_year %>
-    </p>
-
-    <p>
-      <%= form.label :cpu %>
-
-      <%= form.text_field :cpu, value: @product.cpu %>
-    </p>
-
-    <p>
-      <%= form.label :gpu %>
-
-      <%= form.text_field :gpu, value: @product.gpu %>
-    </p>
-
-    <p>
-      <%= form.label :internal_storage %>
-
-      <%= form.text_field :internal_storage, value: @product.internal_storage %>
-    </p>
-
-    <p>
-      <%= form.label :ram %>
-
-      <%= form.text_field :ram, value: @product.ram %>
-    </p>
-  </div>
-
-  <!-- Fields for Consoles -->
-  <div class="console-fields" style="<%= @product.product_type == "Console" ? 'display:block;' : 'display:none;' %>">
-    <p>
-      <%= form.label :console_brand %>
-
-      <%= form.select :console_brand, ["Sony", "Microsoft", "Nintendo"], selected: @product.console_brand %>
-    </p>
-
-    <p>
-      <%= form.label :console_model %>
-
-      <%= form.select :console_model, ["PS5", "PS4", "Xbox Series", "Nintendo Switch"], selected: @product.console_model %>
-    </p>
-
-    <p>
-      <%= form.label :console_submodel %>
-
-      <%= form.text_field :console_submodel, value: @product.console_submodel %>
-    </p>
-
-    <p>
-      <%= form.label :bought_year %>
-
-      <%= form.text_field :bought_year, value: @product.bought_year %>
-    </p>
-  </div>
-
-  <!-- Fields for Games -->
-  <div class="game-fields" style="<%= @product.product_type == "Game" ? 'display:block;' : 'display:none;' %>">
-    <p>
-      <%= form.label :platform %>
-
-      <%= form.text_field :platform, value: @product.platform %>
-    </p>
-
-    <p>
-      <%= form.label :release_year %>
-
-      <%= form.text_field :release_year, value: @product.release_year %>
-    </p>
-  </div>
-
-  <p>
-    <%= form.submit %>
-  </p>
+  <%= f.submit 'Create' %>
 <% end %>
 
-<%= link_to "Back", products_new_path(@product) %>
-
-<script>
-  $(document).ready(function() {
-    // Show fields for selected product type
-    $('form select#product_product_type').change(function() {
-      if ($(this).val() == "Gaming PC") {
-        $('.gaming-pc-fields').show();
-        $('.console-fields').hide();
-        $('.game-fields').hide();
-      } else if ($(this).val() == "Console") {
-        $('.gaming-pc-fields').hide();
-        $('.console-fields').show();
-        $('.game-fields').hide();
-      } else if ($(this).val() == "Game") {
-        $('.gaming-pc-fields').hide();
-        $('.console-fields').hide();
-        $('.game-fields').show();
-      } else {
-        $('.gaming-pc-fields').hide();
-        $('.console-fields').hide();
-        $('.game-fields').hide();
-      }
-    });
-  });
-</script>
+<%= link_to 'Back', products_path %>

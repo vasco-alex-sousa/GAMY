@@ -1,49 +1,23 @@
-<h1>Gaming Gear for Rent</h1>
+<h1>Products</h1>
 
-<%= form_tag products_new_path, method: :get do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search for gaming gear" %>
-  <%= submit_tag "Search" %>
+<%= form_tag products_path, :method => 'get' do %>
+  <%= label_tag :search, 'Search for product:' %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Search' %>
 <% end %>
 
-<h2>Gaming PCs</h2>
 <ul>
-  <% @gaming_pcs.each do |product| %>
+  <% @products.each do |product| %>
     <li>
-      <%= link_to product.name, products_new_path(product) %>
-      <p>Type: <%= product.pc_type %></p>
-      <p>Brand: <%= product.pc_brand %></p>
-      <p>Bought Year: <%= product.bought_year %></p>
-      <p>CPU: <%= product.cpu %></p>
-      <p>GPU: <%= product.gpu %></p>
-      <p>Internal Storage: <%= product.internal_storage %></p>
-      <p>RAM: <%= product.ram %></p>
-      <p><%= number_to_currency(product.price) %> / day</p>
+      <%= link_to product.name, product_path(product) %>
+
+
+      <%= product.description %>
+
+
+      <%= number_to_currency(product.price) %>
     </li>
   <% end %>
 </ul>
 
-<h2>Consoles</h2>
-<ul>
-  <% @consoles.each do |product| %>
-    <li>
-      <%= link_to product.name, products_new_path(product) %>
-      <p>Brand: <%= product.console_brand %></p>
-      <p>Model: <%= product.console_model %></p>
-      <p>Sub-Model: <%= product.console_submodel %></p>
-      <p>Bought Year: <%= product.bought_year %></p>
-      <p><%= number_to_currency(product.price) %> / day</p>
-    </li>
-  <% end %>
-</ul>
-
-<h2>Games</h2>
-<ul>
-  <% @games.each do |product| %>
-    <li>
-      <%= link_to product.name, products_new_path(product) %>
-      <p>Platform: <%= product.platform %></p>
-      <p>Release Year: <%= product.release_year %></p>
-      <p><%= number_to_currency(product.price) %> / day</p>
-    </li>
-  <% end %>
-</ul>
+<%= link_to 'New Product', new_product_path %>

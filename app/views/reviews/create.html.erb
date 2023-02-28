@@ -1,9 +1,0 @@
-<%= form_with(url: product_reviews_path(@product), local: true) do |form| %>
-  <%= form.label :rating %>
-  <%= form.select :rating, options_for_select([['1 star', 1], ['2 stars', 2], ['3 stars', 3], ['4 stars', 4], ['5 stars', 5]], 5), include_blank: false %>
-
-  <%= form.label :comment %>
-  <%= form.text_area :comment, rows: 4, cols: 40 %>
-
-  <%= form.submit 'Submit', class: 'btn btn-primary' %>
-<% end %>
