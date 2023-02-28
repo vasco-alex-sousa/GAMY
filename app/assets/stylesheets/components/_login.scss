@@ -18,3 +18,12 @@ $border-color_1: #6442a5;
 		border-color: $border-color_1;
 	}
 }
+
+.form-check-input.is-valid:checked {
+  background-color: $background-color_1;
+  border-color: $border-color_1;
+}
+
+.container .justify-content-center{
+  transform:translatex(0px) translatey(0px);
+ }

@@ -40,7 +40,12 @@
 =end%>
 <% if params[:controller] != 'sessions' && params[:action] != 'new' && !flash[:alert] %>
   <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3" style="--bs-primary: #fd0dd7;--bs-primary-rgb: 253,13,215;">
-    <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#"></a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-5">
+        <span class="visually-hidden">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div>
         <%= link_to root_path do %>
           <%= image_tag "gamy_logo-01.png", alt: "gamy logo here", class: "logo"%>
@@ -57,6 +62,15 @@
     </div>
   </nav>
 <% end %>
+
+<script>
+  const navbarCollapse = document.getElementById('navcol-5');
+  const navbarToggler = document.querySelector('.navbar-toggler');
+
+  navbarToggler.addEventListener('click', () => {
+    navbarCollapse.classList.toggle('navbar-collapse-black');
+  });
+</script>
 
 
 <%
