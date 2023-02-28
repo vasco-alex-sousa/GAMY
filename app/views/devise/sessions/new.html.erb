@@ -1,3 +1,5 @@
+<%
+=begin%>
 
 <body class="bg-gradient-primary" style="background: #232323;">
     <div class="container">
@@ -21,8 +23,8 @@
                                             <div class="custom-control custom-checkbox small">
                                                 <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1"><label class="form-check-label custom-control-label" for="formCheck-1">Remember Me</label></div>
                                             </div>
-                                        </div><button class="btn btn-primary d-block btn-user w-100" type="submit" style="background: #6441a5;">Login</button>
-                                        <hr><a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button" style="background: #6441a5;"><i class="fab fa-twitch"></i>&nbsp; Login with Twitch</a>
+                                        </div><button class="btn btn-primary d-block btn-user w-100" type="submit" style="background: #6441a5; border: none;">Login</button>
+                                        <hr><a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button" style="background: #6441a5; border: none;"><i class="fab fa-twitch"></i>&nbsp; Login with Twitch</a>
                                         <hr>
                                     </form>
                                     <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
@@ -35,6 +37,8 @@
             </div>
         </div>
     </div>
+<%
+=end%>
 
 <%
 =begin%>
@@ -63,3 +67,58 @@
  <%= render "devise/shared/links" %>
 <%
 =end%>
+
+
+<%
+=begin%>
+ working code without twitch login and without login button 😡
+<%
+=end%>
+<body class="bg-gradient-primary" style="background: #232323;">
+<div class="container" style=" transform:translatex(0px) translatey(181px)";>
+  <div class="row justify-content-center" >
+    <div class="col-md-9 col-lg-12 col-xl-10">
+      <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-flex">
+              <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;assets/img/dogs/image3.jpeg&quot;);"></div>
+            </div>
+            <div class="col-lg-6" style="background: #393939;">
+              <div class="p-5" style="color: rgb(133, 135, 150);">
+                <div class="text-center">
+                  <h4 class="text-dark mb-4">Welcome Back!</h4>
+                </div>
+                <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),
+                                    data: {turbo: false}, html: {class: "user"}) do |f| %>
+                  <div class="form-group">
+                    <%= f.input :email,
+                                required: false,
+                                autofocus: true,
+                                input_html: { autocomplete: "email", class: "form-control form-control-user", placeholder: "Enter Email Address..." } %>
+                  </div>
+                  <div class="form-group">
+                    <%= f.input :password,
+                                required: false,
+                                input_html: { autocomplete: "current-password", class: "form-control form-control-user", placeholder: "Password" } %>
+                  </div>
+                  <% if devise_mapping.rememberable? %>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small d-flex">
+                        <%= f.input :remember_me, as: :boolean, label: false, input_html: { class: "custom-control-input", id: "formCheck-1" } %>
+                        <label class="custom-control-label" for="formCheck-1">Remember Me</label>
+                      </div>
+                    </div>
+                  <% end %>
+                  <%= f.button :submit, "Login", class: "btn btn-primary d-block btn-user w-100", style: "background: #6441a5; border: none;" %>
+                <% end %>
+                <div class="text-center mt-3"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
+                <div class="text-center"><a class="small" href="register.html">Create an Account!</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
