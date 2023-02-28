@@ -1,17 +1,19 @@
 class ReviewsController < ApplicationController
   def create
-  @product = Product.find(params[:product_id])
-  @booking = Booking.new
-  @review = Review.new(review_params)
-  @review.user_id = current_user.id
-  @review.product_id = @product.id
-  if @review.save
-    redirect_to product_path(@product)
-  else
-    render 'products/show'
+    @product = Product.find(params[:product_id])
+    @booking = Booking.find_by(user: current_user, product: @product)
+    if @booking.present?
+      @review = Review.new(review_params)
+      @review.booking = @booking
+      if @review.save
+        redirect_to product_path(@product)
+      else
+        redirect_to product_path(@product)
+      end
+    else
+      redirect_to product_path(@product), alert: "You need to book this product before you can review it."
+    end
   end
-end
-
 
   private
 
