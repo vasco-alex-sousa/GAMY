@@ -1,0 +1,20 @@
+/*Heading */
+.p-5 h4{
+  color:#e0e0e0 !important;
+ }
+
+ /* Small */
+ .p-5 .text-center .small{
+  color:#e0e0e0;
+  text-decoration:none;
+ }
+
+ $background-color_1: #6442a5;
+$border-color_1: #6442a5;
+
+.form-check-input {
+	&:checked {
+		background-color: $background-color_1;
+		border-color: $border-color_1;
+	}
+}
