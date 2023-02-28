@@ -1,2 +1,166 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+  <!-- Hero section -->
+  <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dmlkZW8lMjBnYW1lc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60">
+    <div class="container">
+      <h1>Lend and borrow <br> top notch gaming gear</h1>
+      <p>Best place to liquidify your illiquidity</p>
+      <div class="hero-buttons">
+        <a href="<%= new_user_registration_path %>" class="btn btn-primary">Borrow</a>
+        <a href="#" class="btn btn-secondary">Lend</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="game-categories">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <ul class="category-list">
+          <li>
+            <a href="#">
+              <i class="fa fa-desktop"></i>
+              Gaming PCs
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-gamepad"></i>
+              Consoles
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-gamepad"></i>
+              Games
+            </a>
+          </li>
+        </ul>
+        <div class="search-form">
+          <form action="#" method="get">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search games...">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="website-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-box">
+          <i class="fa fa-users"></i>
+          <h4>10,000+</h4>
+          <p>Users</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-box">
+          <i class="fa-solid fa-gamepad"></i>
+          <h4>50,000+</h4>
+          <p>Products</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-box">
+          <i class="fa-solid fa-sack-dollar"></i>
+          <h4>1,000,000</h4>
+          <p>Tx Volume</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-box">
+          <i class="fa fa-globe"></i>
+          <h4>50+</h4>
+          <p>Cities</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Product Display & Grid -->
+  <section class="flexible-grid">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 1</h5>
+              <p class="card-text">Description of product 1.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 2</h5>
+              <p class="card-text">Description of product 2.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 3</h5>
+              <p class="card-text">Description of product 3.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="product-cards">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 4</h5>
+              <p class="card-text">Description of product 4.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 5</h5>
+              <p class="card-text">Description of product 5.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Product 5</h5>
+              <p class="card-text">Description of product 5.</p>
+              <a href="#" class="btn btn-primary">Borrow</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

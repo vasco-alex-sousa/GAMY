@@ -1,1 +1,194 @@
-// Specific CSS for your home-page
+/* Hero section */
+.hero {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 80px 0;
+  background-image: url('/app/assets/images/logo.png');
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+
+
+  h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      margin: 0 10px;
+    }
+  }
+}
+
+/* Flexible grid */
+.flexible-grid {
+  padding: 80px 0;
+
+  .card {
+    margin-bottom: 30px;
+
+    .card-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+  }
+}
+
+/* Product display cards */
+.product-cards {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+
+  .card {
+    margin-bottom: 30px;
+
+    .card-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  }
+}
+
+.website-stats {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+
+  .stat-box {
+    text-align: center;
+
+    i {
+      font-size: 48px;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    h4 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.game-categories {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+
+  .category-list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      a {
+        display: block;
+        text-align: center;
+
+        i {
+          font-size: 36px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .search-form {
+    margin-top: 20px;
+
+    .form-group {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+
+      input[type="text"] {
+        width: 50%;
+        padding: 10px;
+        border-radius: 4px 0 0 4px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+      }
+
+      button[type="submit"] {
+        padding: 10px;
+        border-radius: 0 4px 4px 0;
+        border: none;
+        outline: none;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .category-list {
+      flex-wrap: wrap;
+
+      li {
+        width: 33.33%;
+        margin-bottom: 20px;
+      }
+    }
+
+    .search-form {
+      .form-group {
+        flex-wrap: wrap;
+
+        input[type="text"] {
+          width: 70%;
+          margin-right: 10px;
+          margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+          width: 30%;
+        }
+      }
+    }
+  }
+}
