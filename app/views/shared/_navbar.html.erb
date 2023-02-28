@@ -38,39 +38,50 @@
 </div>
 <%
 =end%>
-<% if params[:controller] != 'sessions' && params[:action] != 'new' && !flash[:alert] %>
-  <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3" style="--bs-primary: #fd0dd7;--bs-primary-rgb: 253,13,215;">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="#"></a>
-      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navcol-5">
-        <span class="visually-hidden">Toggle navigation</span>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div>
-        <%= link_to root_path do %>
-          <%= image_tag "gamy_logo-01.png", alt: "gamy logo here", class: "logo"%>
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to "#", class: "navbar-brand" do %>
+      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to "Home", "#", class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Messages", "#", class: "nav-link" %>
+          </li>
+          <li class="nav-item dropdown">
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <%= link_to "Action", "#", class: "dropdown-item" %>
+              <%= link_to "Another action", "#", class: "dropdown-item" %>
+              <%
+=begin%>
+ <%= link_to "Log out", "#", class: "dropdown-item", data: {turbo_method: :delete} %>
+<%
+=end%>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class: "dropdown-item" %>
+
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
         <% end %>
-      </div>
-      <div id="navcol-5" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Gaming PC</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Gaming Consoles</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Games</a></li>
-          <li><%= link_to "Login", new_user_session_path, class: "btn btn-primary ms-md-2", style: "background: #6441a5; border: none;"%></li>
-        </ul>
-      </div>
+      </ul>
     </div>
-  </nav>
-<% end %>
+  </div>
+</div>
 
-<script>
-  const navbarCollapse = document.getElementById('navcol-5');
-  const navbarToggler = document.querySelector('.navbar-toggler');
 
-  navbarToggler.addEventListener('click', () => {
-    navbarCollapse.classList.toggle('navbar-collapse-black');
-  });
-</script>
 
 
 <%
