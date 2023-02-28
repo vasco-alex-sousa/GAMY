@@ -1,21 +1,21 @@
 class BookingsController < ApplicationController
   def index
-    @cart = Cart.where(user_id: current_user.id)
+    @booking = Booking.where(user_id: current_user.id)
   end
 
   def create
-    @cart = Cart.new(cart_params)
-    if @cart.save
-      redirect_to carts_path
+    @booking = Booking.new(booking_params)
+    if @booking.save
+      redirect_to bookings_path
     else
       render 'index'
     end
   end
 
   def destroy
-    @cart = Cart.where(user_id: current_user.id, product_id: params[:id]).first
-    if @cart.destroy
-      redirect_to carts_path
+    @booking = Booking.where(user_id: current_user.id, product_id: params[:id]).first
+    if @booking.destroy
+      redirect_to bookings_path
     else
       render 'index'
     end
@@ -23,7 +23,7 @@ class BookingsController < ApplicationController
 
   private
 
-  def cart_params
-    params.require(:cart).permit(:product_id, :user_id)
+  def booking_params
+    params.require(:booking).permit(:product_id, :user_id)
   end
 end

@@ -1,5 +1,17 @@
 <h1>Bookings</h1>
 
+<!-- Add a modal for selecting dates -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Select Dates:</h2>
+    <div id="calendar"></div>
+  </div>
+</div>
+
+<!-- Add a button to open the modal -->
+<button id="book-btn">Book Now</button>
+
 <table>
   <thead>
     <tr>
@@ -11,21 +23,115 @@
     </tr>
   </thead>
   <tbody>
-    <% @cart.each do |c| %>
+    <% @booking.each do |c| %>
       <tr>
         <td><%= c.product.name %></td>
         <td><%= c.start_date.strftime("%B %d, %Y") %></td>
         <td><%= c.end_date.strftime("%B %d, %Y") %></td>
         <td><%= number_to_currency(c.price) %></td>
-        <td><%= link_to 'Remove from cart', cart_path(c.product_id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <td><%= link_to 'Cancel', booking_path(c.product_id), method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
       <td colspan="3">Total:</td>
-      <td><%= number_to_currency(@cart.sum(&:price)) %></td>
-      <td><%= link_to 'Checkout', new_order_path %></td>
+      <td><%= number_to_currency(@booking.sum(&:price)) %></td>
+      <td><%= link_to 'Checkout', new_user_password_path %></td>
     </tr>
   </tfoot>
 </table>
+
+<!-- Add some JavaScript to handle the modal and calendar -->
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("book-btn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal and show the calendar
+  btn.onclick = function() {
+    // Get the selected start and end dates from the form
+    var start_date = document.getElementById("start_date").value;
+    var end_date = document.getElementById("end_date").value;
+
+    // Use moment.js to parse the dates and calculate the number of months between them
+    var start_month = moment(start_date, "YYYY-MM-DD").startOf("month");
+    var end_month = moment(end_date, "YYYY-MM-DD").startOf("month");
+    var num_months = end_month.diff(start_month, "months") + 1;
+
+    // Set the initial month to the start date
+    var current_month = start_month.clone();
+
+    // Create a calendar for each month between the start and end dates
+    var calendar_html = "";
+    for (var i = 0; i < num_months; i++) {
+      // Get the number of days in the current month
+      var days_in_month = current_month.daysInMonth();
+
+      // Add the month and year to the calendar
+      calendar_html += "<h3>" + current_month.format("MMMM YYYY") + "</h3>";
+
+      // Add the days of the month to the calendar
+      calendar_html += "<table class='calendar'>";
+      calendar_html += "<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>";
+      calendar_html += "<tbody>";
+      var current_day = current_month.clone().startOf("month").day("Sunday");
+      for (var j = 0; j < 6; j++) {
+        calendar_html += "<tr>";
+        for (var k = 0; k < 7; k++) {
+          if (current_day.month() == current_month.month()) {
+            calendar_html += "<td class='valid-date'>" + current_day.date() + "</td>";
+          } else {
+            calendar_html += "<td class='invalid-date'></td>"
+          }
+          current_day.add(1, "day");
+        }
+        calendar_html += "</tr>";
+      }
+      calendar_html += "</tbody>";
+      calendar_html += "</table>";
+
+      // Move to the next month
+      current_month.add(1, "month");
+    }
+
+    // Set the calendar HTML and show the modal
+    document.getElementById("calendar").innerHTML = calendar_html;
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // When the user clicks a valid date in the calendar, update the form and close the modal
+  var valid_dates = document.getElementsByClassName("valid-date");
+  for (var i = 0; i < valid_dates.length; i++) {
+    valid_dates[i].addEventListener("click", function() {
+      // Get the selected date and format it as YYYY-MM-DD
+      var selected_date = moment(current_month.year() + "-" + (current_month.month() + 1) + "-" + this.innerHTML, "YYYY-M-D").format("YYYY-MM-DD");
+
+      // Update the start or end date input field depending on which one is currently focused
+      if (document.activeElement.id == "start_date") {
+        document.getElementById("start_date").value = selected_date;
+        document.getElementById("end_date").focus();
+      } else {
+        document.getElementById("end_date").value = selected_date;
+        modal.style.display = "none";
+      }
+    });
+  }
+</script>

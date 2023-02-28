@@ -1,6 +1,6 @@
 <h1>Add New Gaming Gear</h1>
 
-<%= form_with model: @product, local: true do |form| %>
+<%= form_with url: products_new_path, method: :post, local: true, model: @product, local: true do |form| %>
   <p>
     <%= form.label :name %>
 
@@ -22,93 +22,93 @@
   <p>
     <%= form.label :product_type %>
 
-    <%= form.select :product_type, ["Gaming PC", "Console", "Game"] %>
+    <%= form.select :product_type, ["Gaming PC", "Console", "Game"], id: "product_type_select" %>
   </p>
 
   <!-- Fields for Gaming PCs -->
-  <div class="gaming-pc-fields" style="display:none;">
+  <div class="gaming-pc-fields" style="<%= @product.product_type == "Gaming PC" ? 'display:block;' : 'display:none;' %>">
     <p>
       <%= form.label :pc_type %>
 
-      <%= form.select :pc_type, ["Laptop", "Desktop"] %>
+      <%= form.select :pc_type, ["Laptop", "Desktop"], selected: @product.pc_type %>
     </p>
 
     <p>
       <%= form.label :pc_brand %>
 
-      <%= form.text_field :pc_brand %>
+      <%= form.text_field :pc_brand, value: @product.pc_brand %>
     </p>
 
     <p>
       <%= form.label :bought_year %>
 
-      <%= form.text_field :bought_year %>
+      <%= form.text_field :bought_year, value: @product.bought_year %>
     </p>
 
     <p>
       <%= form.label :cpu %>
 
-      <%= form.text_field :cpu %>
+      <%= form.text_field :cpu, value: @product.cpu %>
     </p>
 
     <p>
       <%= form.label :gpu %>
 
-      <%= form.text_field :gpu %>
+      <%= form.text_field :gpu, value: @product.gpu %>
     </p>
 
     <p>
       <%= form.label :internal_storage %>
 
-      <%= form.text_field :internal_storage %>
+      <%= form.text_field :internal_storage, value: @product.internal_storage %>
     </p>
 
     <p>
       <%= form.label :ram %>
 
-      <%= form.text_field :ram %>
+      <%= form.text_field :ram, value: @product.ram %>
     </p>
   </div>
 
   <!-- Fields for Consoles -->
-  <div class="console-fields" style="display:none;">
+  <div class="console-fields" style="<%= @product.product_type == "Console" ? 'display:block;' : 'display:none;' %>">
     <p>
       <%= form.label :console_brand %>
 
-      <%= form.select :console_brand, ["Sony", "Microsoft", "Nintendo"] %>
+      <%= form.select :console_brand, ["Sony", "Microsoft", "Nintendo"], selected: @product.console_brand %>
     </p>
 
     <p>
       <%= form.label :console_model %>
 
-      <%= form.select :console_model, ["Playstation 5", "Playstation 4", "Xbox Series S", "Xbox Series X", "Xbox One", "Nintendo Switch"] %>
+      <%= form.select :console_model, ["PS5", "PS4", "Xbox Series", "Nintendo Switch"], selected: @product.console_model %>
     </p>
 
     <p>
       <%= form.label :console_submodel %>
 
-      <%= form.text_field :console_submodel %>
+      <%= form.text_field :console_submodel, value: @product.console_submodel %>
     </p>
 
     <p>
       <%= form.label :bought_year %>
 
-      <%= form.text_field :bought_year %>
+      <%= form.text_field :bought_year, value: @product.bought_year %>
     </p>
   </div>
 
   <!-- Fields for Games -->
-  <div class="game-fields" style="display:none;">
+  <div class="game-fields" style="<%= @product.product_type == "Game" ? 'display:block;' : 'display:none;' %>">
     <p>
       <%= form.label :platform %>
 
-      <%= form.text_field :platform %>
+      <%= form.text_field :platform, value: @product.platform %>
     </p>
 
     <p>
       <%= form.label :release_year %>
 
-      <%= form.text_field :release_year %>
+      <%= form.text_field :release_year, value: @product.release_year %>
     </p>
   </div>
 
@@ -117,7 +117,7 @@
   </p>
 <% end %>
 
-<%= link_to "Back", products_path %>
+<%= link_to "Back", products_new_path(@product) %>
 
 <script>
   $(document).ready(function() {

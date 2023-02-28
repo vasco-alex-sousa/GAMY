@@ -1,9 +1,8 @@
-<h1>List of Gamers</h1>
+<h1>Users Info</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
       <th>Email</th>
       <th>Number of bookings</th>
     </tr>
@@ -11,7 +10,6 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.bookings.count %></td>
       </tr>
