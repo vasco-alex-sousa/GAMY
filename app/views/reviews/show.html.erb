@@ -1,0 +1,6 @@
+<h1>Reviews</h1>
+
+<% @product.reviews.each do |review| %>
+  <p><strong>Rating:</strong> <%= review.rating %></p>
+  <p><strong>Comment:</strong> <%= review.comment %></p>
+<% end %>

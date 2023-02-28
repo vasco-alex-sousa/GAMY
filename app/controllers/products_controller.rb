@@ -3,15 +3,14 @@ class ProductsController < ApplicationController
     if params[:search]
       @products = Product.where('name LIKE ?', "%#{params[:search]}%")
     else
-      @gaming_pcs = Product.where(product_type: "Gaming PC")
-      @consoles = Product.where(product_type: "Console")
-      @games = Product.where(product_type: "Game")
+      @products = Product.all
     end
   end
 
   def show
-    @product = Product.includes(:reviews).find(params[:id])
+    @product = Product.includes(bookings: :reviews).find(params[:id])
     @review = Review.new
+    @booking = Booking.new
   end
 
   def new

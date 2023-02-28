@@ -1,0 +1,9 @@
+<%= form_for [@product, booking] do |f| %>
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date %>
+
+  <%= f.label :end_date %>
+  <%= f.date_select :end_date %>
+
+  <%= f.submit 'Book' %>
+<% end %>
