@@ -1,6 +1,6 @@
-<h1>Add New Gaming Gear</h1>
+<h1>Edit <%= @product.name %></h1>
 
-<%= form_with url: products_new_path, method: :post, local: true, model: @product, local: true do |form| %>
+<%= form_with model: @product, local: true do |form| %>
   <p>
     <%= form.label :name %>
 
@@ -22,7 +22,7 @@
   <p>
     <%= form.label :product_type %>
 
-    <%= form.select :product_type, ["Gaming PC", "Console", "Game"], id: "product_type_select" %>
+    <%= form.select :product_type, ["Gaming PC", "Console", "Game"] %>
   </p>
 
   <!-- Fields for Gaming PCs -->
@@ -81,7 +81,7 @@
     <p>
       <%= form.label :console_model %>
 
-      <%= form.select :console_model, ["PS5", "PS4", "Xbox Series", "Nintendo Switch"], selected: @product.console_model %>
+      <%= form.select :console_model, ["Playstation 5", "Playstation 4", "Xbox Series S", "Xbox Series X", "Xbox One", "Nintendo Switch"], selected: @product.console_model %>
     </p>
 
     <p>
@@ -104,12 +104,6 @@
 
       <%= form.text_field :platform, value: @product.platform %>
     </p>
-
-    <p>
-      <%= form.label :release_year %>
-
-      <%= form.text_field :release_year, value: @product.release_year %>
-    </p>
   </div>
 
   <p>
@@ -117,7 +111,7 @@
   </p>
 <% end %>
 
-<%= link_to "Back", products_new_path(@product) %>
+<%= link_to "Back", product_path(@product) %>
 
 <script>
   $(document).ready(function() {

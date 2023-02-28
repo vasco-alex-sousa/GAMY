@@ -1,2 +1,18 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Users Info</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Number of bookings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.bookings.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

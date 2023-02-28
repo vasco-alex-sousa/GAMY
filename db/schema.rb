@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_145418) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_104506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_bookings_on_product_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "carts", force: :cascade do |t|
     t.integer "user_id"
@@ -39,6 +48,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_145418) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "product_type"
+    t.string "pc_type"
+    t.string "pc_brand"
+    t.integer "bought_year"
+    t.string "cpu"
+    t.string "gpu"
+    t.string "internal_storage"
+    t.string "ram"
+    t.string "console_brand"
+    t.string "console_model"
+    t.string "console_submodel"
+    t.string "platform"
+    t.integer "release_year"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -62,4 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_145418) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "products"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "products", "users"
 end
