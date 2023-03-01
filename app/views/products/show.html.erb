@@ -1,32 +1,58 @@
-<h1><%= @product.name if @product %></h1>
+<!-- app/views/products/show.html.erb -->
+<h1><%= @product.name %></h1>
 
-<p><%= @product.description if @product %></p>
+<p><%= @product.description %></p>
 
-<h2>Reviews</h2>
-
-<% if @product.reviews.any? %>
-  <ul>
-    <% @product.reviews.each do |review| %>
-      <li>
-        <strong><%= review.rating %> stars</strong>
-        <%= review.comment %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No reviews yet.</p>
+<% if @product.user %>
+  <p>Listed by <%= @product.user.email.split("@")[0] %>. <%= link_to "View all listings", user_path(@product.user) %>.</p>
 <% end %>
 
-<h2>Add a review</h2>
+<% if @bookings.any? %>
+  <h2>Bookings</h2>
 
-<% if current_user.present? && @product.bookings.where(user: current_user).any? %>
-  <%= render 'reviews/form', review: @review %>
+  <table>
+    <thead>
+      <tr>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <tr>
+          <td><%= booking.start_date %></td>
+          <td><%= booking.end_date %></td>
+          <td><%= booking.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @review_date %>
+  <p>You can review this product after <%= @review_date.strftime("%B %d, %Y") %>.</p>
 <% else %>
   <p>You need to book this product before you can review it.</p>
 <% end %>
 
-<%= render partial: 'bookings/form', locals: {product: @product, booking: @booking} %>
+<% if user_signed_in? && current_user != @product.user && !@product.booked_for?(current_user) %>
+  <%= form_for @booking do |f| %>
+    <div class="form-group">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, class: "form-control" %>
+    </div>
 
-<%= button_to 'Delete', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+    <div class="form-group">
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Book", class: "btn btn-primary" %>
+  <% end %>
+<% elsif current_user == @product.user %>
+  <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-primary" %>
+  <%= link_to "Delete this product", product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<% end %>
+

@@ -3,15 +3,12 @@ class ReviewsController < ApplicationController
     @product = Product.find(params[:product_id])
     @booking = Booking.find_by(user: current_user, product: @product)
     if @booking.present?
-      @review = Review.new(review_params)
-      @review.booking = @booking
+      @review = @booking.reviews.build(review_params)
       if @review.save
         redirect_to product_path(@product)
       else
-        redirect_to product_path(@product)
+        redirect_to product_path(@product), alert: "You need to book this product before you can review it."
       end
-    else
-      redirect_to product_path(@product), alert: "You need to book this product before you can review it."
     end
   end
 
