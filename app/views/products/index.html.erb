@@ -14,26 +14,31 @@
     </div>
   </div>
 
+
+
+
   <div class="row">
+
+
     <% @products.each do |product| %>
       <div class="col-md-4 mb-3">
-        <div class="card" style="height: 300px; overflow-y: scroll;">
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <p class="card-text"><%= number_to_currency(product.price) %></p>
-            <%= link_to product_path(product), class: "btn btn-primary btn-sm p-1" do %>
-              <i class="fas fa-info-circle fa-lg"></i>
-              <span class="sr-only">Detail</span>
-            <% end %>
-            <%= link_to product_path(product), class: "btn btn-primary btn-sm p-1" do %>
-              <i class="fas fa-info-circle fa-lg"></i>
-              <span class="sr-only">Detail</span>
-            <% end %>
-            <p class="card-text"><%= truncate(product.description, length: 120) %></p>
+            <div class="card">
+              <%= link_to product_path(product) do %>
+                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" class="card-img-top" alt="...">
+              <% end %>
+                <div class="card-body">
+                  <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
+                  <div class="price-info d-flex justify-content-between">
+                    <p class="card-text"><%= number_to_currency(product.price) %></p>
+                    <%= link_to product_path(product) do %>
+                        <i class="fas fa-info-circle fa-lg" id='info-button'></i>
+                    <% end %>
+                  </div>
+            </div>
           </div>
-        </div>
       </div>
     <% end %>
+
+
   </div>
 </div>

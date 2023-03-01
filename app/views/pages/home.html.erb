@@ -4,53 +4,8 @@
     <div class="container">
       <h1>Lend and borrow <br> top notch gaming gear</h1>
       <p>Best place to liquidify your illiquidity</p>
-      <div class="hero-buttons">
-        <a href="<%= new_user_registration_path %>" class="btn">Borrow</a>
-        <a href="#" class="btn btn-secondary">Lend</a>
-      </div>
     </div>
   </section>
-
-  <section class="game-categories">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <ul class="category-list">
-          <li>
-            <a href="#">
-              <i class="fa fa-desktop"></i>
-              Gaming PCs
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-gamepad"></i>
-              Consoles
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa-solid fa-pinball"></i>
-              Games
-            </a>
-          </li>
-        </ul>
-        <div class="search-form">
-          <form action="#" method="get">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search games...">
-              <button type="submit" class="btn btn-primary">
-                <i class="fa fa-search"></i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 
   <section class="website-stats">
   <div class="container">
@@ -93,14 +48,20 @@
   <div class="container">
     <div class="row">
       <% @products.each do |product| %>
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title"><%= product.name %></h5>
-              <p class="card-text"><%= product.description %></p>
-              <%= button_to "Borrow", product, method: :post, class: "btn btn-primary" %>
-            </div>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+              <%= link_to product_path(product) do %>
+                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" class="card-img-top" alt="...">
+              <% end %>
+                <div class="card-body">
+                  <h5 class="card-title" id='name-color'><%= link_to product.name, product_path(product) %></h5>
+                  <div class="price-info d-flex justify-content-between">
+                    <p class="card-text"><%= number_to_currency(product.price) %></p>
+                    <%= link_to product_path(product) do %>
+                        <i class="fas fa-info-circle fa-lg" id='info-button'></i>
+                    <% end %>
+                  </div>
+                </div>
           </div>
         </div>
       <% end %>
