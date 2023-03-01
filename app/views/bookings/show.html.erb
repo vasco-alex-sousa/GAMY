@@ -20,5 +20,13 @@
   <%= @booking.end_date %>
 </p>
 
+<% if @booking.start_date > Date.today %>
+  <p>Status: Booked</p>
+<% elsif @booking.start_date <= Date.today && Date.today <= @booking.end_date %>
+  <p>Status: Ongoing</p>
+<% elsif @booking.end_date == Date.today %>
+  <p>Status: Finished</p>
+<% end %>
+
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
 <%= link_to 'Back', @booking.product %>

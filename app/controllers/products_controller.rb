@@ -3,14 +3,20 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.order(created_at: :desc)
+    @products = @products.where(product_type: params[:product_type]) if params[:product_type].present?
   end
 
   def show
-    @booking = @product.bookings.where(user: current_user).last
-    @review_date = @booking ? @booking.end_date + 1.day : nil
-    @reviews = @product.reviews
-    @bookings = @product.bookings
+    @product = Product.find(params[:id])
+    @booking = Booking.new
+    @bookings = @product.bookings.where("end_date >= ?", Date.today)
+
+    if params[:start_date].present? && params[:end_date].present?
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+      @bookings = @bookings.where.not("start_date < ? AND end_date > ?", end_date, start_date)
+    end
   end
 
   def new
@@ -57,7 +63,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :image)
+    params.require(:product).permit(:name, :description, :price, :product_type)
   end
 end
-

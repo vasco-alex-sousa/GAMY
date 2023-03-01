@@ -5,5 +5,8 @@
   <%= f.label :end_date %>
   <%= f.date_select :end_date %>
 
+  <%= f.label :product_type %>
+  <%= f.select :product_type, ['Gaming PC', 'Consoles', 'Games'] %>
+
   <%= f.submit 'Book' %>
 <% end %>
