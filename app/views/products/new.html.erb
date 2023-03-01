@@ -1,16 +1,29 @@
-<h1>New Product</h1>
-
-<%= form_for @product do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-
-  <%= f.label :price %>
-  <%= f.text_field :price %>
-
-  <%= f.submit 'Create' %>
-<% end %>
-
-<%= link_to 'Back', products_path %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">New Product</h3>
+        </div>
+        <div class="card-body">
+          <%= form_for @product, html: { class: "form" } do |f| %>
+            <div class="form-group">
+              <%= f.label :name, class: "form-label" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "Enter product name" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :description, class: "form-label" %>
+              <%= f.text_area :description, class: "form-control", placeholder: "Enter product description" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :price, class: "form-label" %>
+              <%= f.text_field :price, class: "form-control", placeholder: "Enter product price" %>
+            </div>
+            <%= f.submit 'Create', class: "btn btn-primary" %>
+          <% end %>
+          <%= link_to 'Back', products_path, class: "btn btn-link" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
