@@ -1,21 +1,31 @@
 <div class="container">
   <div class="row mb-3">
-    <div class="col-md-8">
-      <%= form_tag products_path, method: :get, class: "form-inline" do %>
-        <div class="form-group mr-3">
-          <%= label_tag :search, 'Search for product:', class: "mr-2" %>
-          <%= text_field_tag :search, params[:search], class: 'form-control' %>
-        </div>
-        <%= submit_tag 'Search', class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-    <div class="col-md-4">
-      <%= link_to 'New Product', new_product_path, class: 'btn btn-primary float-md-right' %>
+  <div class="col-md-8">
+    <%= form_tag(products_path, method: :get) do %>
+      <%= text_field_tag(:search, params[:search], placeholder: "Search for products...") %>
+      <%= submit_tag "Search", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+   <div class="col-md-4">
+    <%= link_to('New Product', new_product_path, class: 'btn btn-primary float-md-right') %>
     </div>
   </div>
+  <style>
+  #search{
+    width:505px;
+    }
 
+    /* Button */
+    .col-md-8 form .btn-primary{
+    transform:translatex(530px) translatey(-34px);
+    }
 
+    /* Button */
+    .container .col-md-4 .btn-primary{
+    transform:translatex(113px) translatey(-3px);
 
+    }
+    </style>
 
   <div class="row">
 
@@ -38,7 +48,5 @@
           </div>
       </div>
     <% end %>
-
-
   </div>
 </div>
