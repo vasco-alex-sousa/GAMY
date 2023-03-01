@@ -1,4 +1,7 @@
 <h1>User Profile</h1>
+<p><strong>Name:</strong> <%= @user.email.split('@').first %></p>
+<p><strong>Account Created:</strong> <%= @user.created_at.to_date %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <%= link_to "My Listings", "#listings", class: "nav-link active", data: {toggle: "tab"} %>
@@ -7,7 +10,6 @@
     <%= link_to "Bookings", "#bookings", class: "nav-link", data: {toggle: "tab"} %>
   </li>
 </ul>
-
 <div class="tab-content">
   <div id="listings" class="tab-pane active">
     <% if @listings.nil? %>
@@ -15,20 +17,19 @@
     <% else %>
       <% @listings.each do |listing| %>
         <p><%= link_to listing.name, product_path(listing) %></p>
+        <% if booking = Booking.find_by(product_id: listing.id, user_id: @user.id) %>
+          <p><strong>Booked on:</strong> <%= booking.start_date %></p>
+        <% end %>
       <% end %>
     <% end %>
   </div>
-
   <div id="bookings" class="tab-pane">
     <% if @bookings.nil? %>
-      <p>No listings found.</p>
+      <p>No bookings found.</p>
     <% else %>
       <% @bookings.each do |booking| %>
-        <p><%= booking.start_date %></p>
+        <p><%= link_to booking.product.name, product_path(booking.product) %></p>
       <% end %>
     <% end %>
   </div>
-
-<% @bookings.each do |booking| %>
-        <p><%= booking.start_date %></p>
-      <% end %>
+</div>
