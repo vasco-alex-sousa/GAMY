@@ -89,79 +89,25 @@
 
 
   <!-- Product Display & Grid -->
-  <section class="flexible-grid">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Product 1</h5>
-              <p class="card-text">Description of product 1.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Product 2</h5>
-              <p class="card-text">Description of product 2.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Product 3</h5>
-              <p class="card-text">Description of product 3.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   <section class="product-cards">
-    <div class="container">
-      <div class="row">
+  <div class="container">
+    <div class="row">
+      <% @products.each do |product| %>
         <div class="col-sm-6 col-md-4">
           <div class="card">
             <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Product 4</h5>
-              <p class="card-text">Description of product 4.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
+              <h5 class="card-title"><%= product.name %></h5>
+              <p class="card-text"><%= product.description %></p>
+              <%= button_to "Borrow", product, method: :post, class: "btn btn-primary" %>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Product 5</h5>
-              <p class="card-text">Description of product 5.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="card">
-            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Product 5</h5>
-              <p class="card-text">Description of product 5.</p>
-              <a href="#" class="btn btn-primary">Borrow</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </section>
+
 
 </body>
 </html>

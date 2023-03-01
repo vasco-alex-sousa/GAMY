@@ -29,3 +29,13 @@
     }
   }
 }
+
+
+.card::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.card::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}

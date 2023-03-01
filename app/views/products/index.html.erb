@@ -1,21 +1,39 @@
-<h1>Products</h1>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <%= form_tag products_path, method: :get, class: "form-inline" do %>
+        <div class="form-group mr-3">
+          <%= label_tag :search, 'Search for product:', class: "mr-2" %>
+          <%= text_field_tag :search, params[:search], class: 'form-control' %>
+        </div>
+        <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <%= link_to 'New Product', new_product_path, class: 'btn btn-primary float-md-right' %>
+    </div>
+  </div>
 
-<%= form_tag products_path, :method => 'get' do %>
-  <%= label_tag :search, 'Search for product:' %>
-  <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag 'Search' %>
-<% end %>
-
-<ul>
-  <% @products.each do |product| %>
-    <li>
-      <%= link_to product.name, product_path(product) %>
-
-      <%= product.description %>
-
-      <%= number_to_currency(product.price) %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to 'New Product', new_product_path %>
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4 mb-3">
+        <div class="card" style="height: 300px; overflow-y: scroll;">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
+            <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+            <p class="card-text"><%= number_to_currency(product.price) %></p>
+            <%= link_to product_path(product), class: "btn btn-primary btn-sm p-1" do %>
+              <i class="fas fa-info-circle fa-lg"></i>
+              <span class="sr-only">Detail</span>
+            <% end %>
+            <%= link_to product_path(product), class: "btn btn-primary btn-sm p-1" do %>
+              <i class="fas fa-info-circle fa-lg"></i>
+              <span class="sr-only">Detail</span>
+            <% end %>
+            <p class="card-text"><%= truncate(product.description, length: 120) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
