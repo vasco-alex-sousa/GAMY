@@ -30,6 +30,6 @@
       <%= f.submit 'Update', class: "btn btn-primary" %>
     <% end %>
 
-    <%= link_to 'Back', products_path, class: "btn btn-link" %>
+    <%= link_to 'Back', request.referer || product_path, class: "btn btn-link" %>
   </div>
 </div>
