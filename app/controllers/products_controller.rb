@@ -24,14 +24,20 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = current_user.products.new(product_params)
+    @product = Product.new(product_params)
+    @product.user = current_user
+
+    # Upload photo to Cloudinary
+    result = Cloudinary::Uploader.upload(params[:product][:photo])
+    @product.photo_public_id = result['public_id']
 
     if @product.save
-      redirect_to @product, notice: "Product was successfully created."
+      redirect_to @product, notice: 'Product was successfully created.'
     else
       render :new
     end
   end
+
 
   def edit
     if current_user != @product.user
@@ -63,6 +69,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :product_type)
+    params.require(:product).permit(:name, :description, :price, :product_type, :photo)
   end
 end
