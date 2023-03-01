@@ -3,8 +3,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all.order(created_at: :desc)
-    @products = @products.where(product_type: params[:product_type]) if params[:product_type].present?
+    if params[:search]
+      @products = Product.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%")
+    elsif params[:product_type]
+      @products = Product.where(product_type: params[:product_type])
+    else
+      @products = Product.all
+    end
   end
 
   def show
