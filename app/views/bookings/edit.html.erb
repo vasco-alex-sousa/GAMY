@@ -1,5 +1,13 @@
 <h1>Editing Booking</h1>
 
+<% if @booking.start_date > Date.today %>
+  <p>Status: Booked</p>
+<% elsif @booking.start_date <= Date.today && Date.today <= @booking.end_date %>
+  <p>Status: Ongoing</p>
+<% elsif @booking.end_date == Date.today %>
+  <p>Status: Finished</p>
+<% end %>
+
 <%= render 'form', booking: @booking %>
 
 <%= link_to 'Back', @product %>

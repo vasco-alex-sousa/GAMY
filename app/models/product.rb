@@ -7,7 +7,13 @@ class Product < ApplicationRecord
   validates :description, presence: true
   validates :price, presence: true
 
+  attribute :product_type, :string
+
   def booked_for?(user)
     bookings.where(user: user).exists?
+  end
+
+  def average_rating
+    reviews.average(:rating)
   end
 end

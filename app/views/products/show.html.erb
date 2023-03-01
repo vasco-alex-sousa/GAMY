@@ -1,44 +1,91 @@
 <!-- app/views/products/show.html.erb -->
-<h1><%= @product.name %></h1>
-
-<p><%= @product.description %></p>
+<div class="card mb-3">
+    <img src="https://www.trustedreviews.com/wp-content/uploads/sites/54/2022/11/PS5-Review-8-scaled.jpg" class="card-img-top img-fluid" alt="Product image">    <h5 class="card-title"><%= @product.name %></h5>
+    <style>
+      img {
+        object-fit: cover;
+        max-height: 300px;
+        width: 100%;
+      }
+  </style>
+    <p class="card-text"><%= @product.description %></p>
+  </div>
+</div>
 
 <% if @product.user %>
-  <p>Listed by <%= @product.user.email.split("@")[0] %>. <%= link_to "View all listings", user_path(@product.user) %>.</p>
+  <%= link_to user_path(@product.user) do %>
+    <img src="https://utahpulse.com/wp-content/uploads/2021/07/61-Sexy-Photos-of-Streamer-Pokimane-You-Will-Ever-See.webp" alt="profile image" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+    <style>
+      img {
+        border-radius: 50%;
+        object-fit: cover;
+        height: 100px;
+        width: 100px;
+      }
+    </style>
+  <% end %>
+  <p>Listed by <strong><%= @product.user.email.split("@")[0] %></strong>.</p>
 <% end %>
 
-<% if @bookings.any? %>
+
+<% if @product.user == current_user %>
   <h2>Bookings</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Start date</th>
-        <th>End date</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @bookings.each do |booking| %>
+  <% if @bookings.any? %>
+    <table class="table">
+      <thead>
         <tr>
-          <td><%= booking.start_date %></td>
-          <td><%= booking.end_date %></td>
-          <td><%= booking.status %></td>
+          <th>Start date</th>
+          <th>End date</th>
+          <th>Status</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+      </thead>
 
-<% if @review_date %>
-  <p>You can review this product after <%= @review_date.strftime("%B %d, %Y") %>.</p>
+      <tbody>
+        <% @bookings.order(start_date: :asc).each do |booking| %>
+          <tr>
+            <td><%= booking.start_date %></td>
+            <td><%= booking.end_date %></td>
+            <td><%= booking.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <h2>Reviews</h2>
+
+  <% if @product.reviews.any? %>
+    <% @product.reviews.each do |review| %>
+      <p><strong>Rating:</strong> <%= review.rating %></p>
+      <p><strong>Comment:</strong> <%= review.comment %></p>
+    <% end %>
+  <% else %>
+    <p>No reviews yet for this Product.</p>
+  <% end %>
 <% else %>
-  <p>You need to book this product before you can review it.</p>
-<% end %>
+  <% if @review_date %>
+    <p>You can review this product after <%= @review_date.strftime("%B %d, %Y") %>.</p>
+  <% else %>
+    <p>You need to book this product before you can review it.</p>
+  <% end %>
 
-<% if user_signed_in? && current_user != @product.user && !@product.booked_for?(current_user) %>
-  <%= form_for @booking do |f| %>
+  <% if user_signed_in? && current_user != @product.user && @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' } %>
+    <%= render 'reviews/form', review: @review %>
+  <% end %>
+
+  <%= form_for [@product, @booking], url: product_bookings_path(@product) do |f| %>
+    <% if @booking.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+        <ul>
+          <% @booking.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <%= f.label :start_date %>
       <%= f.date_field :start_date, class: "form-control" %>
@@ -49,10 +96,109 @@
       <%= f.date_field :end_date, class: "form-control" %>
     </div>
 
-    <%= f.submit "Book", class: "btn btn-primary" %>
+    <% if @booking.start_date.present? && @booking.start_date < Date.today %>
+      <div class="alert alert-danger" role="alert">Please select a future date.</div>
+    <% elsif @product.bookings.any? { |booking| (booking.start_date..booking.end_date).overlaps?(@booking.start_date..@booking.end_date) } %>
+      <div class="alert alert-warning" role="alert">Product already booked for that date.</div>
+    <% else %>
+      <%= f.submit "Book", class: "btn btn-primary" %>
+    <% end %>
   <% end %>
-<% elsif current_user == @product.user %>
-  <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-primary" %>
-  <%= link_to "Delete this product", product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+  <% if @product.reviews.any? %>
+    <% @product.reviews.each do |review| %>
+      <p><strong>Rating:</strong> <%= review.rating %></p>
+      <p><strong>Comment:</strong> <%= review.comment %></p>
+    <% end %>
+  <% else %>
+    <p>No reviews yet for this Product.</p>
+  <% end %>
 <% end %>
 
+<% if @product.user != current_user %>
+  <h2>Bookings</h2>
+
+  <% if @bookings.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Start date</th>
+          <th>End date</th>
+          <%# <th>Status</th> %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @bookings.order(start_date: :asc).each do |booking| %>
+          <tr>
+            <td><%= booking.start_date %></td>
+            <td><%= booking.end_date %></td>
+            <%# <td><%= booking.status %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+
+  <% if user_signed_in? %>
+    <%= form_for [@product, @booking], url: product_bookings_path(@product) do |f| %>
+      <% if @booking.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+          <ul>
+            <% @booking.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :start_date %>
+        <%= f.date_field :start_date, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :end_date %>
+        <%= f.date_field :end_date, class: "form-control" %>
+      </div>
+
+      <%= f.submit "Book", class: "btn btn-primary" %>
+    <% end %>
+  <% elsif current_user == @product.user %>
+    <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-primary" %>
+    <%= link_to "Delete this product", product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <% end %>
+
+  <p> </p>
+
+  <h2>Reviews</h2>
+
+  <% if user_signed_in? && current_user != @product.user && @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' && booking.end_date < Date.today } %>
+    <%= render 'reviews/form', review: @review %>
+  <% end %>
+
+  <% if @review_date %>
+    <p>You can review this product after <%= @review_date.strftime("%B %d, %Y") %>.</p>
+  <% elsif @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' } %>
+    <% @booking = @product.bookings.where(user_id: current_user.id, status: 'approved').order(:start_date).first %>
+    <% if @booking.end_date < Date.today %>
+      <%= render 'reviews/form', review: @review %>
+    <% elsif @booking.end_date >= Date.today %>
+      <p>You can review this product after <%= @booking.end_date.strftime("%B %d, %Y") %>.</p>
+    <% end %>
+  <% else %>
+    <p>You need to book this product before you can review it.</p>
+  <% end %>
+
+
+  <% if @product.reviews.any? %>
+    <% @product.reviews.each do |review| %>
+      <p><strong>Rating:</strong> <%= review.rating %></p>
+      <p><strong>Comment:</strong> <%= review.comment %></p>
+    <% end %>
+  <% else %>
+    <p>No reviews yet for this Product.</p>
+  <% end %>
+<% end %>

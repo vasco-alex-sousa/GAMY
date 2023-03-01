@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body style="padding-top: 150px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container-fluid">
     <%= link_to root_path do %>
       <%= image_tag "https://i.ibb.co/kqFnsTj/5f1q-Bb-F-1.png", class: "navbar-brand", id: "navbarDropdown", 'aria-haspopup': true, 'aria-expanded': false, style: "height: 100px; object-fit: contain;" %>
@@ -22,7 +23,14 @@
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "https://utahpulse.com/wp-content/uploads/2021/07/61-Sexy-Photos-of-Streamer-Pokimane-You-Will-Ever-See.webp", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <style>
+            .avatar {
+              height: 70px;
+              width: 70px;
+              object-fit: cover;
+            }
+            </style>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>

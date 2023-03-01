@@ -1,5 +1,20 @@
+<% if @booking.start_date > Date.today %>
+  <p>Status: Booked</p>
+<% elsif @booking.start_date <= Date.today && Date.today <= @booking.end_date %>
+  <p>Status: Ongoing</p>
+<% elsif @booking.end_date == Date.today %>
+  <p>Status: Finished</p>
+<% end %>
 <%= simple_form_for [@product, booking] do |f| %>
   <%= f.input :start_date %>
   <%= f.input :end_date %>
-  <%= f.submit "Submit Booking", class: "btn btn-primary" %>
+
+
+  <% if @booking.start_date < Date.today %>
+    <div class="alert alert-danger" role="alert">Please select a future date.</div>
+  <% elsif @product.bookings.any? { |booking| (booking.start_date..booking.end_date).overlaps?(@booking.start_date..@booking.end_date) } %>
+    <div class="alert alert-warning" role="alert">Product already booked for that date.</div>
+  <% else %>
+    <%= f.submit "Submit Booking", class: "btn btn-primary" %>
+  <% end %>
 <% end %>
