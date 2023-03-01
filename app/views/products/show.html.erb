@@ -74,37 +74,6 @@
     <%= render 'reviews/form', review: @review %>
   <% end %>
 
-  <%= form_for [@product, @booking], url: product_bookings_path(@product) do |f| %>
-    <% if @booking.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
-        <ul>
-          <% @booking.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= f.label :start_date %>
-      <%= f.date_field :start_date, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :end_date %>
-      <%= f.date_field :end_date, class: "form-control" %>
-    </div>
-
-    <% if @booking.start_date.present? && @booking.start_date < Date.today %>
-      <div class="alert alert-danger" role="alert">Please select a future date.</div>
-    <% elsif @product.bookings.any? { |booking| (booking.start_date..booking.end_date).overlaps?(@booking.start_date..@booking.end_date) } %>
-      <div class="alert alert-warning" role="alert">Product already booked for that date.</div>
-    <% else %>
-      <%= f.submit "Book", class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
-
   <% if @product.reviews.any? %>
     <% @product.reviews.each do |review| %>
       <p><strong>Rating:</strong> <%= review.rating %></p>
