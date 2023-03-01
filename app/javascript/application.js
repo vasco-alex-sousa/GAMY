@@ -28,4 +28,33 @@ $(document).ready(function() {
     // Prevent the default link behavior
     return false;
   });
+
+  // Add click event handlers to the delete buttons
+  $(".delete-booking").click(function() {
+    // Get the booking ID
+    var bookingId = $(this).data("booking-id");
+
+    // Get the confirmation message
+    var confirmation = $(this).data("confirmation");
+
+    // Display the confirmation message and wait for user input
+    if (confirm(confirmation)) {
+      // Send a DELETE request to the server
+      $.ajax({
+        url: "/bookings/" + bookingId,
+        type: "DELETE",
+        success: function() {
+          // Reload the page
+          location.reload();
+        },
+        error: function() {
+          // Display an error message
+          alert("An error occurred while deleting the booking.");
+        }
+      });
+    }
+
+    // Prevent the default button behavior
+    return false;
+  });
 });
