@@ -15,6 +15,7 @@
 
 <% if @product.user %>
   <%= link_to user_path(@product.user) do %>
+<% if @product.user.photo.attached? %>
   <%= cl_image_tag @product.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
     <style>
       img {
@@ -24,6 +25,17 @@
         width: 100px;
       }
     </style>
+<% else %>
+  <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
+    <style>
+      img {
+        border-radius: 50%;
+        object-fit: cover;
+        height: 100px;
+        width: 100px;
+      }
+    </style>
+<% end %>
   <% end %>
   <p>Listed by <strong><%= @product.user.email.split("@")[0] %></strong>.</p>
 <% end %>
