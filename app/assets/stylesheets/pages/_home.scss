@@ -1,198 +1,44 @@
-
-  @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,900;1,500&display=swap');
-/* Hero section */
-.hero {
-  background-color: #f8f9fa;
-  text-align: center;
-  padding: 162px 0;
-  background-image: url('/app/assets/images/logo.png');
-  background-size: cover;
-  background-position: center;
-  height: 500px;
-
-
-  h1 {
-    font-size: 48px;
-    margin-bottom: 30px;
-    font-family: 'Work Sans', sans-serif;
-    font-weight: 900;
+/*=============== HOME ===============*/
+.home{
+  &__img{
+      width: 250px;
+      position: absolute;
+      top: -16rem;
+      right: 1.5rem;
   }
-
-  p {
-    font-size: 24px;
-    margin-bottom: 30px;
+  &__data{
+      padding-top: 5rem;
   }
-
-  .hero-buttons {
-    display: flex;
-    justify-content: center;
-
-    .btn {
-      margin: 0 10px;
-    }
+  &__header{
+      position: relative;
   }
-}
-
-/* Flexible grid */
-.flexible-grid {
-  padding: 80px 0;
-
-  .card {
-    margin-bottom: 30px;
-
-    .card-title {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .card-text {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .btn-primary {
-      background-color: #6442a5;
-      border-color: #6442a5;
-    }
-
-    .btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
+  &__title{
+      position: absolute;
+      top: -4rem;
+      left: 1rem;
+      line-height: 6rem;
+      font-size: var(--biggest-font-size);
+      background: var(--text-gradient);
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
   }
-}
-
-/* Product display cards */
-.product-cards {
-  background-color: #f8f9fa;
-  padding: 80px 0;
-
-  .card {
-    margin-bottom: 30px;
-
-    .card-title {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .card-text {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .btn-primary {
-      background-color: #6442a5;
-      border-color: #6442a5;
-    }
+  &__subtitle{
+      font-size: var(--big-font-size);
+      margin-bottom: var(--mb-2-5);
   }
-}
-
-.website-stats {
-  background-color: #f8f9fa;
-  padding: 80px 0;
-
-  .stat-box {
-    text-align: center;
-
-    i {
-      font-size: 25px;
-      color: #6442a5;
-      margin-bottom: 20px;
-    }
-
-    h4 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 0;
-    }
+  &__title-description{
+      font-size: var(--h3-font-size);
+      font-weight: var(--font-medium);
+      margin-bottom: var(--mb-1);
   }
-}
-
-.game-categories {
-  background-color: #f8f9fa;
-  padding: 40px 0;
-
-  .category-list {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      a {
-        display: block;
-        text-align: center;
-
-        i {
-          font-size: 36px;
-          margin-bottom: 10px;
-        }
-      }
-    }
+  &__description{
+      margin-bottom: var(--mb-2-5);
+      line-height: var(--text-line-height);
   }
-
-  .search-form {
-    margin-top: 20px;
-
-    .form-group {
-      display: flex;
-      justify-content: center;
-      margin: 0;
-
-      input[type="text"] {
-        width: 50%;
-        padding: 10px;
-        border-radius: 10px 0 0 4px;
-        border: none;
-        outline: none;
-        font-size: 16px;
-      }
-
-      button[type="submit"] {
-        padding: 10px;
-        border-radius: 0 4px 4px 0;
-        border: none;
-        outline: none;
-        background-color: #6442a5;
-        color: #fff;
-        font-size: 16px;
-
-        i {
-          font-size: 20px;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .category-list {
-      flex-wrap: wrap;
-
-      li {
-        width: 33.33%;
-        margin-bottom: 20px;
-      }
-    }
-
-    .search-form {
-      .form-group {
-        flex-wrap: wrap;
-
-        input[type="text"] {
-          width: 70%;
-          margin-right: 10px;
-          margin-bottom: 10px;
-        }
-
-        button[type="submit"] {
-          width: 30%;
-        }
-      }
-    }
+  &__price{
+      font-size: var(--h3-font-size);
+      font-weight: var(--font-semi-bold);
+      margin-left: var(--mb-0-75);
   }
 }
