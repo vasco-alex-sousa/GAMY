@@ -1,4 +1,7 @@
-<h1>Edit Profile</h1>
+<section class="case section grid" id="case">
+  <h2 class="section__title section__title-gradient">Edit User</h2>
+  <div class="case__container container grid">
+    <div>
 <%= form_for(@user, url: registration_path(@user)) do |f| %>
   <%= f.label :email %>
   <%= f.email_field :email %>
@@ -26,3 +29,4 @@
 
   <%= f.submit 'Update' %>
 <% end %>
+</section>

@@ -88,3 +88,25 @@
     -webkit-background-clip: text;
     background-clip: text;
 }
+
+/* Image */
+.footer .footer__logo img{
+  min-width:265px;
+  display:inline-block;
+  transform:translatex(-256px) translatey(-122px);
+}
+
+ /* Image */
+.nav .nav__logo img{
+  min-width:150px;
+  transform:translatex(-256px) translatey(-6px);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
+}
