@@ -1,50 +1,57 @@
-<body style="padding-top: 150px;">
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container-fluid">
-    <%= link_to root_path do %>
-      <%= image_tag "https://i.ibb.co/kqFnsTj/5f1q-Bb-F-1.png", class: "navbar-brand", id: "navbarDropdown", 'aria-haspopup': true, 'aria-expanded': false, style: "height: 100px; object-fit: contain;" %>
-    <% end %>
+ <!--=============== HEADER ===============-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="/" class="nav__logo" id="nav-logo">
+                    <img src="https://i.imgur.com/5m7lrBN.png">
+                </a>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <%= link_to "New Product", new_product_path, class: "nav__link active-link" %>
+                        </li>
+                        <li class="nav__item">
+                            <%= link_to "Gaming PC's", products_path(product_type: "Gaming PC"), class: "nav__link active-link" %>
+                        </li>
+                        <li class="nav__item">
+                            <%= link_to "Consoles", products_path(product_type: "Consoles"), class: "nav__link" %>
+                        </li>
+                        <li class="nav__item">
+                           <%= link_to "Games", products_path(product_type: "Games"), class: "nav__link" %>
+                        </li>
+                        <li class="nav__item">
+                            <a href="" class="nav__link">Products</a>
+                        </li>
+                        <li class="nav__item">
+                             <% if user_signed_in? %>
+                          <li class="nav-item dropdown">
+                            <%= cl_image_tag current_user.photo.key, crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+                            <style>
+                            .avatar {
+                              height: 70px;
+                              width: 70px;
+                              object-fit: cover;
+                            }
+                            </style>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                              <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
+                              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                            </div>
+                          </li>
+                        <% else %>
+                          <li class="nav__link">
+                            <%= link_to "Login", new_user_session_path, class: "nav__link" %>
+                          </li>
+                        <% end %>
+                        </li>
+                    </ul>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto me-5">
-        <li class="nav-item">
-          <%= link_to "New Product", new_product_path, class: "btn btn-primary mr-2" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Gaming PC's", products_path(product_type: "Gaming PC"), class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Consoles", products_path(product_type: "Consoles"), class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Games", products_path(product_type: "Games"), class: "nav-link" %>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <% if user_signed_in? %>
-          <li class="nav-item dropdown">
-            <%= cl_image_tag current_user.photo.key, crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <style>
-            .avatar {
-              height: 70px;
-              width: 70px;
-              object-fit: cover;
-            }
-            </style>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</nav>
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-function-line"></i>
+                </div>
+            </nav>
+        </header>

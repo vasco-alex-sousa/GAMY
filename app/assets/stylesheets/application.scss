@@ -10,6 +10,19 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/home";
 @import "pages/user";
-@import "pages/products"
+
+@import 'config/variables';
+@import 'base/base';
+@import 'layout/layout';
+@import 'components/header';
+@import 'pages/home';
+@import 'components/buttons';
+@import 'components/sponsor';
+@import 'components/specs';
+@import 'components/case';
+@import 'components/discount';
+@import 'pages/products';
+@import 'components/footer';
+@import 'components/scroll';
+@import 'components/mediaqueries';
