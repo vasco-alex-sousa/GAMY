@@ -1,3 +1,56 @@
+        <section class="user-profile section grid" id="user-profile">
+          <h2 class="section__title section__title-gradient">User Profile</h2>
+          <div class="user-profile__container container grid">
+            <div class="user-profile__content grid">
+              <% if @user.photo.attached? %>
+                <%= cl_image_tag @user.photo.key, alt:"profile image", class:"user-profile__img", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
+              <% else %>
+                <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt:"profile image", class:"user-profile__img", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
+              <% end %>
+              <div>
+                <% if @user == current_user %>
+                  <%= link_to "Edit Profile", edit_user_registration_path, class:"user-profile__edit-link" %>
+                <% end %>
+                <h3 class="user-profile__title"><%= @user.email.split('@').first %> - <%= @user.city %>, <%= @user.country %></h3>
+                <ul class="user-profile__list">
+                  <li class="user-profile__item"><strong>Reviews:</strong>
+                    <% if @user.products.any? %>
+                      <% sum = 0 %>
+                      <% count = 0 %>
+                      <% @user.products.each do |product| %>
+                        <% if product.reviews.any? %>
+                          <% sum += product.average_rating.to_f %>
+                          <% count += 1 %>
+                        <% end %>
+                      <% end %>
+                      <% if count > 0 %>
+                        <%= content_tag :li, class:"user-profile__item" do %>
+                          <strong>Overall average rating:</strong> <%= (sum/count).round(2) %>
+                        <% end %>
+                      <% else %>
+                        <%= content_tag :li, class:"user-profile__item" do %>
+                          There are no ratings for this user's products.
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <%= content_tag :li, class:"user-profile__item" do %>
+                        This user has no listed products.
+                      <% end %>
+                    <% end %>
+                  </li>
+                  <li class="user-profile__item"><strong>Email:</strong> <%= @user.email %></li>
+                  <li class="user-profile__item"><strong>Phone Number:</strong> <%= @user.phone_number %></li>
+                  <li class="user-profile__item"><strong>City:</strong> <%= @user.city %></li>
+                  <li class="user-profile__item"><strong>District:</strong> <%= @user.district %></li>
+                  <li class="user-profile__item"><strong>Country:</strong> <%= @user.country %></li>
+                  <li class="user-profile__item"><strong>Account Created:</strong> <%= @user.created_at.to_date %></li>
+                  <li class="user-profile__item"><strong>Number of Listings:</strong> <%= @user.products.count %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
 <h1>User Profile</h1>
 <div style="display: flex">
 <% if @user.photo.attached? %>
@@ -171,7 +224,7 @@
             <% if booking.product.user.photo.attached? %>
               <%= link_to cl_image_tag(booking.product.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
             <% else %>
-              <%= link_to image_tag("<https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg>", alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
+              <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% end %>
             <%= link_to booking.product.user.email.split('@').first, user_path(booking.product.user) %>
 
