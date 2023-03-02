@@ -224,7 +224,7 @@
             <% if booking.product.user.photo.attached? %>
               <%= link_to cl_image_tag(booking.product.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
             <% else %>
-              <%= link_to image_tag("<https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg>", alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
+              <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% end %>
             <%= link_to booking.product.user.email.split('@').first, user_path(booking.product.user) %>
 
@@ -236,8 +236,3 @@
     <% end %>
   </div>
 <% end %>
-
-
-
-
-
