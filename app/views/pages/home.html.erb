@@ -31,10 +31,11 @@
             <!--=============== SPONSOR ===============-->
             <section class="sponsor section">
                 <div class="sponsor__container container grid">
-                    <img src="/app/assets/images/sponsor1.png" alt="" class="sponsor__img">
-                    <img src="/app/assets/images/sponsor2.png" alt="" class="sponsor__img">
-                    <img src="/app/assets/images/sponsor3.png" alt="" class="sponsor__img">
-                    <img src="/app/assets/images/sponsor4.png" alt="" class="sponsor__img">
+                    <img src="https://i.imgur.com/3XIyl0y.png" alt="Apple Sponsor" class="sponsor__img">
+                    <img src="https://i.imgur.com/bOx3906.png" alt="Le Wagon Sponsor" class="sponsor__img">
+                    <img src="https://i.imgur.com/4EjGiju.png" alt="Twitch Sponsor" class="sponsor__img">
+                    <img src="https://i.imgur.com/1Amfqsy.png" alt="Github Sponsor" class="sponsor__img">
+                    <img src="https://i.imgur.com/yQd1kf9.png" alt="Youtube Sponsor" class="sponsor__img">
                 </div>
             </section>
 
@@ -76,6 +77,7 @@
             </section>
 
             <!--=============== CASE ===============-->
+
             <section class="case section grid" id="case">
                 <h2 class="section__title section__title-gradient">Zones</h2>
 
@@ -113,11 +115,18 @@
 
 
             <!--=============== PRODUCTS ===============-->
+
             <section class="products section" id="products">
                 <h2 class="section__title section__title-gradient products__line">
                     Step up <br> your Game
                 </h2>
-
+                <div class="footer__content" id="searchbar">
+                    <form action="" class="footer__form">
+                        <input type="email" placeholder="Search Product" class="footer__input">
+                        <button class="button button--flex">
+                            <i class="ri-search-line button__ico"></i> Search
+                        </button>
+                    </form>
                 <div class="products__container container grid">
                     <% @products.each do |product| %>
   <article class="products__card">
