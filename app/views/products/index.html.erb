@@ -34,7 +34,7 @@
       <div class="col-md-4 mb-3">
             <div class="card">
               <%= link_to product_path(product) do %>
-                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHZyfGVufDB8fDB8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" class="card-img-top" alt="...">
+                <%= cl_image_tag product.photo.key, width: 400, height: 300, class:"card-img-top", alt:"Product image"%>
               <% end %>
                 <div class="card-body">
                   <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
