@@ -120,19 +120,19 @@
 
                 <div class="products__container container grid">
                     <% @products.each do |product| %>
-  <article class="products__card">
-    <div class="products__content">
-      <%= link_to product_path(product) do %>
-                <%= cl_image_tag product.photo.key, width: 400, height: 300, class:"card-img-top", alt:"Product image"%>
+                  <article class="products__card">
+                    <div class="products__content">
+                      <%= link_to product_path(product) do %>
+                                <%= cl_image_tag product.photo.key, width: 400, height: 300, class:"card-img-top", alt:"Product image"%>
+                                <% end %>
+                      <h3 class="products__title"><%= product.name %></h3>
+                      <span class="products__price"><%= number_to_currency(product.price) %></span>
+                      <button class="button button--flex products__button">
+                        <i class="ri-shopping-bag-line button__icon"></i>
+                      </button>
+                    </div>
+                  </article>
                 <% end %>
-      <h3 class="products__title"><%= product.name %></h3>
-      <span class="products__price"><%= number_to_currency(product.price) %></span>
-      <button class="button button--flex products__button">
-        <i class="ri-shopping-bag-line button__icon"></i>
-      </button>
-    </div>
-  </article>
-<% end %>
 
                     <article class="products__card">
                         <div class="products__content">
