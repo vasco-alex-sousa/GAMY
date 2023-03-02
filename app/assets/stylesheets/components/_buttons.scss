@@ -1,41 +1,23 @@
-/* Button */
-.container .col-md-4 .btn-primary{
-  transform:translatex(70px) translatey(24px);
- }
+/*=============== BUTTONS ===============*/
+.button{
+  display: inline-block;
+  background-color: var(--purple-dark);
+  color: var(--white-color);
+  padding: 1rem 1.25rem;
+  border-radius: .5rem;
+  transition: .3s;
 
- /* Button */
- .col-md-8 .form-inline .btn-primary{
-  transform:translatex(518px) translatey(-38px);
- }
+  &:hover{
+      background-color: var(--black-color-alt);
+  }
 
-#info-button {
-  color:#6441A4;
+  &__icon{
+      font-size: 1.2rem;
+  }
+
+  &--flex{
+      display: inline-flex;
+      align-items: center;
+      column-gap: .75rem;
+  }
 }
-
-#name-color {
-  color: black;
-}
-
-/* Link */
-#name-color a{
-  color:#000000;
-  text-decoration:none;
- }
-
- /* Hero */
-.hero{
-  transform:translatex(-10px) translatey(-13px);
-  background-position-y:36%;
- }
-
- /* Hero */
-.hero{
-  background-position-y:43%;
-  background-repeat:repeat;
- position:relative;
- left:8px;
- }
-
- #footer-index {
-  
- }

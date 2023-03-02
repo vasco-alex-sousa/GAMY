@@ -1,80 +1,212 @@
+<body>
+        <main class="main">
+            <!--=============== HOME ===============-->
+            <section class="home section" id="home">
+                <div class="home__container container grid">
+                    <div>
+                        <img src="https://cdn.shopify.com/s/files/1/0250/9779/7729/t/19/assets/Rampage-stealth-2.png?v=41014001996176970981666039374">
+                    </div>
 
-  <!-- Hero section -->
-  <section class="hero" style="background-image: url('https://i.ibb.co/P1k21VW/Youtube-Gaming-Banner-Template-2.jpg">
-    <div class="container">
-    </div>
-  </section>
+                    <div class="home__data">
+                        <div class="home__header">
+                            <h1 class="home__title">PCs</h1>
+                            <h2 class="home__subtitle">Most Wanted</h2>
+                        </div>
 
-  <section class="website-stats">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-sm-6">
-        <div class="stat-box">
-          <i class="fa fa-users"></i>
-          <h4>10,000+</h4>
-          <p>Users</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="stat-box">
-          <i class="fa-solid fa-gamepad"></i>
-          <h4>50,000+</h4>
-          <p>Products</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="stat-box">
-          <i class="fa-solid fa-sack-dollar"></i>
-          <h4>1,000,000</h4>
-          <p>Tx Volume</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <div class="stat-box">
-          <i class="fa fa-globe"></i>
-          <h4>50+</h4>
-          <p>Cities</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+                        <div class="home__footer">
+                            <h3 class="home__title-description">Level up your game!</h3>
+                            <p class="home__description">Gamify is a unlocks the power of lending games and consoles marketplace app. Access our vast librar conveniently, while trading with fellow gamers.
+                            </p>
+                            <a href="#" class="button button--flex">
+                                <span class="button--flex">
+                                    <i class="ri-shopping-bag-line button__icon"></i></i> Borrow Now
+                                </span>
+                                <span class="home__price">$299</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <%= form_tag products_path, :method => 'get', class: "form-inline my-2 my-lg-0" do %>
-        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search Products" %>
-        <%= submit_tag "Search", class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  </div>
-</div>
+            <!--=============== SPONSOR ===============-->
+            <section class="sponsor section">
+                <div class="sponsor__container container grid">
+                    <img src="/app/assets/images/sponsor1.png" alt="" class="sponsor__img">
+                    <img src="/app/assets/images/sponsor2.png" alt="" class="sponsor__img">
+                    <img src="/app/assets/images/sponsor3.png" alt="" class="sponsor__img">
+                    <img src="/app/assets/images/sponsor4.png" alt="" class="sponsor__img">
+                </div>
+            </section>
+
+            <!--=============== SPECS ===============-->
+            <section class="specs section grid" id="specs">
+                <h2 class="section__title section__title-gradient">Specs</h2>
+
+                <div class="specs__container container grid">
+                    <div class="specs__content grid">
+                        <div class="specs__data">
+                            <i class="ri-file-user-fill"></i>
+                            <h3 class="specs__title">+10000</h3>
+                            <span class="specs__subtitle">New users</span>
+                        </div>
+
+                        <div class="specs__data">
+                            <i class="ri-gamepad-fill"></i>
+                            <h3 class="specs__title">+500</h3>
+                            <span class="specs__subtitle">Games</span>
+                        </div>
+
+                        <div class="specs__data">
+                            <i class="ri-money-dollar-circle-fill"></i>
+                            <h3 class="specs__title">+1000000$</h3>
+                            <span class="specs__subtitle">Volume</span>
+                        </div>
+
+                        <div class="specs__data">
+                            <i class="ri-building-fill"></i>
+                            <h3 class="specs__title">+5</h3>
+                            <span class="specs__subtitle">Cities <br> in Portugal</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4FkjX?ver=c092" alt="" class="specs__img">
+                    </div>
+                </div>
+            </section>
+
+            <!--=============== CASE ===============-->
+            <section class="case section grid" id="case">
+                <h2 class="section__title section__title-gradient">Zones</h2>
+
+                <div class="case__container container grid">
+                    <div>
+                        <img src="https://i.pinimg.com/originals/02/cc/fd/02ccfd8c02e8f3e776a4d47eff7eb128.jpg" alt="" class="case__img">
+                    </div>
+
+                    <div class="case__data">
+                        <p class="case__description">Explore the benefits of a borrowing and lending gaming platform, now available in Lisbon and Porto
+                        </p>
+                        <a href="#" class="button button--flex">
+                            <i class="ri-information-line button__icon"></i> Check my zone
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!--=============== DISCOUNT ===============-->
+            <section class="discount section" id="Signin">
+                <div class="discount__container container grid">
+                    <div class="discount__animate">
+                        <h2 class="discount__title">Immerse yourself in <br> the world of gaming</h2>
+                        <p class="discount__description">Share the fun, lend and borrow your favorite games</p>
+                        <a href="/assets/signup/login.html" class="button button--flex">
+                            <i class="ri-shopping-bag-line button__icon"></i> Sign up
+                        </a>
+                    </div>
+
+                    <img src="https://gmedia.playstation.com/is/image/SIEPDC/PSVR2-thumbnail-01-en-22feb22?$facebook$" alt="" class="discount__img">
+                </div>
+            </section>
 
 
 
-  <!-- Product Display & Grid -->
-  <section class="product-cards">
-  <div class="container">
-    <div class="row">
-      <% @products.each do |product| %>
-        <div class="col-md-4 mb-3">
-            <div class="card">
-              <%= link_to product_path(product) do %>
+
+            <!--=============== PRODUCTS ===============-->
+            <section class="products section" id="products">
+                <h2 class="section__title section__title-gradient products__line">
+                    Step up <br> your Game
+                </h2>
+
+                <div class="products__container container grid">
+                    <% @products.each do |product| %>
+  <article class="products__card">
+    <div class="products__content">
+      <%= link_to product_path(product) do %>
                 <%= cl_image_tag product.photo.key, width: 400, height: 300, class:"card-img-top", alt:"Product image"%>
                 <% end %>
-                <div class="card-body">
-                  <h5 class="card-title" id='name-color'><%= link_to product.name, product_path(product) %></h5>
-                  <div class="price-info d-flex justify-content-between">
-                    <p class="card-text"><%= number_to_currency(product.price) %></p>
-                    <%= link_to product_path(product) do %>
-                        <i class="fas fa-info-circle fa-lg" id='info-button'></i>
-                    <% end %>
-                  </div>
-                </div>
-          </div>
-        </div>
-      <% end %>
+      <h3 class="products__title"><%= product.name %></h3>
+      <span class="products__price"><%= number_to_currency(product.price) %></span>
+      <button class="button button--flex products__button">
+        <i class="ri-shopping-bag-line button__icon"></i>
+      </button>
     </div>
-  </div>
-</section>
+  </article>
+<% end %>
+
+                    <article class="products__card">
+                        <div class="products__content">
+                            <img src="assets/img/product2.png" alt="" class="products__img">
+
+                            <h3 class="products__title">Xbox 360</h3>
+                            <span class="products__price">$249</span>
+
+                            <button class="button button--flex products__button">
+                                <i class="ri-shopping-bag-line button__icon"></i>
+                            </button>
+                        </div>
+                    </article>
+                    <article class="products__card">
+                        <div class="products__content">
+                            <img src="https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$" alt="" class="products__img">
+
+                            <h3 class="products__title">Play Station</h3>
+                            <span class="products__price">$249</span>
+
+                            <button class="button button--flex products__button">
+                                <i class="ri-shopping-bag-line button__icon"></i>
+                            </button>
+                        </div>
+                    </article>
+                    <article class="products__card">
+                        <div class="products__content">
+                            <img src="assets/img/product4.png" alt="" class="products__img">
+
+                            <h3 class="products__title">Xbox 360</h3>
+                            <span class="products__price">$249</span>
+
+                            <button class="button button--flex products__button">
+                                <i class="ri-shopping-bag-line button__icon"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="products__card">
+                        <div class="products__content">
+                            <img src="https://xboxdesignlab.xbox.com/media/wysiwyg/16656_Content-Placement_01-0_788x444_03_1.png" alt="" class="products__img">
+
+                            <h3 class="products__title">Play Station 5</h3>
+                            <span class="products__price">$249</span>
+
+                            <button class="button button--flex products__button">
+                                <i class="ri-shopping-bag-line button__icon"></i>
+                            </button>
+                        </div>
+                    </article>
+                    <article class="products__card">
+                        <div class="products__content">
+                            <img src="http://rptech.radiopopular.pt/wp-content/uploads/2019/08/tm58ci8r.png" alt="" class="products__img">
+
+                            <h3 class="products__title">Play Station 5</h3>
+                            <span class="products__price">$249</span>
+
+                            <button class="button button--flex products__button">
+                                <i class="ri-shopping-bag-line button__icon"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!--=============== SCROLL UP ===============-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-s-line scrollup__icon"></i>
+        </a>
+
+        <!--=============== SCROLL REVEAL ===============-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+    </body>
