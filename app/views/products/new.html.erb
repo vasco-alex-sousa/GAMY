@@ -1,3 +1,40 @@
+<section class="case section grid" id="case">
+  <h2 class="section__title section__title-gradient">New Product</h2>
+  <div class="case__container container grid">
+    <div>
+      <%= form_for @product, html: { class: "form" } do |f| %>
+        <div class="form-group">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "footer__form footer__input", placeholder: "Enter product name" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :description, class: "form-label" %>
+          <%= f.text_area :description, class: "footer__form footer__input", placeholder: "Enter product description" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :price, class: "form-label" %>
+          <%= f.text_field :price, class: "footer__form footer__input", placeholder: "Enter product price" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :product_type %>
+          <%= f.select :product_type, ['Gaming PC', 'Consoles', 'Games'], {}, { class: 'footer__form footer__input' } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :photo %>
+          <%= f.file_field :photo, class: "footer__form footer__input" %>
+          <%= f.submit 'Create', class: "button button--flex" %>
+         <% end %>
+        </div>
+
+    </div>
+<div class="case__data">
+</div>
+ </div>
+</section>
+
+
+
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -7,7 +44,7 @@
         </div>
         <div class="card-body">
           <%= form_for @product, html: { class: "form" } do |f| %>
-            <div class="form-group">
+            <div class="footer__form">
               <%= f.label :name, class: "form-label" %>
               <%= f.text_field :name, class: "form-control", placeholder: "Enter product name" %>
             </div>
@@ -35,3 +72,34 @@
     </div>
   </div>
 </div>
+
+
+
+<section class="case section grid" id="case">
+                <h2 class="section__title section__title-gradient">New Listing</h2>
+
+                <div class="case__container container grid">
+                    <div>
+                      <form action="" class="footer__form">
+                        <input type="string" placeholder="name" class="footer__input">
+                      </form>
+                      <form action="" class="footer__form">
+                        <input type="string" placeholder="description" class="footer__input">
+                      </form>
+                      <form action="" class="footer__form">
+                       <input type="integer" placeholder="price" class="footer__input">
+                      </form>
+                    </div>
+
+                    <div class="case__data">
+                        <form action="" class="footer__form">
+                         <input type="integer" placeholder="product type" class="footer__input">
+                        </form>
+                        <p class="case__description">Hello world
+                        </p>
+                        <a href="#" class="button button--flex">
+                            <i class="ri-information-line button__icon"></i> Create
+                        </a>
+                    </div>
+                </div>
+            </section>
