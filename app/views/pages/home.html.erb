@@ -121,10 +121,11 @@
                     Step up <br> your Game
                 </h2>
                 <div class="footer__content" id="searchbar">
-                    <form action="" class="footer__form">
-                        <input type="email" placeholder="Search Product" class="footer__input">
-                        <button class="button button--flex">
-                            <i class="ri-search-line button__ico"></i> Search
+                  <%= form_tag products_path, :method => 'get', class: "footer__form" do %>
+                    <%= text_field_tag :search, params[:search], class: "footer__input", placeholder: "Search Products" %>
+                    <%= submit_tag "Search", class: 'button button--flex' %>
+                  <% end %>
+                          <!--  <i class="ri-search-line button__ico"></i> Search -->
                         </button>
                     </form>
                 <div class="products__container container grid">

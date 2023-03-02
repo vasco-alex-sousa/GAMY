@@ -1,32 +1,16 @@
-<div class="container">
-  <div class="row mb-3">
-  <div class="col-md-8">
-    <%= form_tag(products_path, method: :get) do %>
-      <%= text_field_tag(:search, params[:search], placeholder: "Search for products...") %>
-      <%= submit_tag "Search", class: 'btn btn-primary' %>
-    <% end %>
+            <section class="products section" id="products">
+                <h2 class="section__title section__title-gradient products__line">
+                    Products
+                </h2>
+                </section>
+
+                <div class="footer__content" id="searchbar">
+                  <%= form_tag products_path, :method => 'get', class: "footer__form" do %>
+                    <%= text_field_tag :search, params[:search], class: "footer__input", placeholder: "Search Products" %>
+                    <%= submit_tag "Search", class: 'button button--flex' %>
+                  <% end %>
   </div>
-   <div class="col-md-4">
-    <%= link_to('New Product', new_product_path, class: 'btn btn-primary float-md-right') %>
-    </div>
-  </div>
-  <style>
-  #search{
-    width:505px;
-    }
-
-    /* Button */
-    .col-md-8 form .btn-primary{
-    transform:translatex(530px) translatey(-34px);
-    }
-
-    /* Button */
-    .container .col-md-4 .btn-primary{
-    transform:translatex(113px) translatey(-3px);
-
-    }
-    </style>
-
+<br>
   <div class="row">
 
 
