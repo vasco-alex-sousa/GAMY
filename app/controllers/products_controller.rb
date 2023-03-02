@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
   def destroy
     if current_user == @product.user
       @product.destroy
-      redirect_to products_url, notice: "Product was successfully destroyed."
+      redirect_to user_path(current_user), notice: "Product was successfully destroyed."
     else
       redirect_to @product, alert: "You can only delete your own products."
     end
