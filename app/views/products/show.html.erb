@@ -15,8 +15,8 @@
 
 <% if @product.user %>
   <%= link_to user_path(@product.user) do %>
-<% if @product.user.photo.attached? %>
-  <%= cl_image_tag @product.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
+  <% if current_user.photo.attached? %>
+      <%= cl_image_tag @product.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
     <style>
       img {
         border-radius: 50%;
@@ -25,8 +25,8 @@
         width: 100px;
       }
     </style>
-<% else %>
-  <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
+            <% else %>
+      <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
     <style>
       img {
         border-radius: 50%;
@@ -35,14 +35,14 @@
         width: 100px;
       }
     </style>
-<% end %>
+            <% end %>
   <% end %>
   <p>Listed by <strong><%= @product.user.email.split("@")[0] %></strong>.</p>
 <% end %>
 
 
 <% if @product.user == current_user %>
-  <h2>Bookings</h2>
+  <h2>Book Dates</h2>
 
   <% if @bookings.any? %>
     <table class="table">
