@@ -16,12 +16,11 @@
                             <h3 class="home__title-description">Level up your game!</h3>
                             <p class="home__description">Gamify is a unlocks the power of lending games and consoles marketplace app. Access our vast librar conveniently, while trading with fellow gamers.
                             </p>
-                            <a href="#" class="button button--flex">
-                                <span class="button--flex">
-                                    <i class="ri-shopping-bag-line button__icon"></i></i> Borrow Now
-                                </span>
-                                <span class="home__price">$299</span>
-                            </a>
+                            <%= link_to products_path , class: "button button--flex" do %>
+                              <span class="button--flex">
+                                  <i class="ri-shopping-bag-line button__icon"></i> See Listings
+                              </span>
+                              <% end %>
                         </div>
                     </div>
                 </div>
@@ -29,12 +28,18 @@
 
             <!--=============== SPONSOR ===============-->
             <section class="sponsor section">
+            <section class="products section" id="products">
+            <h2 class="section__title section__title-gradient products__line">
+                    Sponsors
+                </h2>
+                </section>
                 <div class="sponsor__container container grid">
-                    <img src="https://i.imgur.com/3XIyl0y.png" alt="Apple Sponsor" class="sponsor__img">
-                    <img src="https://i.imgur.com/bOx3906.png" alt="Le Wagon Sponsor" class="sponsor__img">
-                    <img src="https://i.imgur.com/4EjGiju.png" alt="Twitch Sponsor" class="sponsor__img">
-                    <img src="https://i.imgur.com/1Amfqsy.png" alt="Github Sponsor" class="sponsor__img">
-                    <img src="https://i.imgur.com/yQd1kf9.png" alt="Youtube Sponsor" class="sponsor__img">
+
+                    <a href="https://apple.com" target="_blank"><img src="https://i.imgur.com/3XIyl0y.png" alt="Apple Sponsor" class="sponsor__img"></a>
+                    <a href="https://lewagon.com" target="_blank"><img src="https://i.imgur.com/bOx3906.png" alt="Le Wagon Sponsor" class="sponsor__img"></a>
+                    <a href="https://twitch.tv" target="_blank"><img src="https://i.imgur.com/4EjGiju.png" alt="Twitch Sponsor" class="sponsor__img"></a>
+                    <a href="https://github.com" target="_blank"><img src="https://i.imgur.com/1Amfqsy.png" alt="Github Sponsor" class="sponsor__img"></a>
+                    <a href="https://youtube.com" target="_blank"><img src="https://i.imgur.com/yQd1kf9.png" alt="Youtube Sponsor" class="sponsor__img"></a>
                 </div>
             </section>
 
@@ -46,9 +51,9 @@
                     <div class="discount__animate">
                         <h2 class="discount__title">Immerse yourself in <br> the world of gaming</h2>
                         <p class="discount__description">Share the fun, lend and borrow your favorite games</p>
-                        <a href="/assets/signup/login.html" class="button button--flex">
+                        <%= link_to  new_user_registration_path , class: "button button--flex"  do %>
                             <i class="ri-shopping-bag-line button__icon"></i> Sign up
-                        </a>
+                        <% end %>
                     </div>
 
                     <img src="https://gmedia.playstation.com/is/image/SIEPDC/PSVR2-thumbnail-01-en-22feb22?$facebook$" alt="" class="discount__img">
@@ -89,7 +94,7 @@
                     <% end %>
                 </div>
                 <div class= "load-more mt-4">
-                  <%= link_to "Load more", products_path , class: "btn loadbtn btn-lg" %>
+                  <%= link_to "Load more", products_path , class: "btn loadbtn btn-lg button button--flex" %>
                 </div>
             </section>
           </div>
