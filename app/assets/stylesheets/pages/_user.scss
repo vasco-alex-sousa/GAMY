@@ -1,5 +1,19 @@
-.show {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 1fr 1fr;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+table {
+  margin-top: 50px;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
 }
