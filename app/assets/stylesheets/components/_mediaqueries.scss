@@ -46,8 +46,8 @@
     }
 
     .products__container{
-        grid-template-columns: 142px;
-        justify-content: center;
+        grid-template-columns: 142px !important;
+        justify-content: center !important;
     }
 }
 
@@ -89,7 +89,7 @@
             justify-content: center;
             align-items: center;
             column-gap: 2rem;
-        }   
+        }
     }
 
     .discount{
@@ -150,7 +150,7 @@
         &__img{
             top: -9rem;
             left: 4rem;
-        }  
+        }
         &__data{
             padding-top: 8rem;
         }
@@ -214,7 +214,7 @@
         margin-left: auto;
         margin-right: auto;
     }
-    
+
     .home{
         &__img{
             width: 300px;
