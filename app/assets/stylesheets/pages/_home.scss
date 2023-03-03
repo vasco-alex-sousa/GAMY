@@ -44,6 +44,9 @@
 }
 
 .products__container {
-  gap: 6rem 15rem;
+  gap: 6rem 15rem !important;
 }
 
+.profile-flex {
+  justify-content: space-around;
+}
