@@ -1,36 +1,38 @@
-            <section class="products section" id="products">
-                <h2 class="section__title section__title-gradient products__line">
-                    Products
-                </h2>
-                </section>
 
-                <div class="footer__content" id="searchbar">
-                  <%= form_tag products_path, :method => 'get', class: "footer__form" do %>
-                    <%= text_field_tag :search, params[:search], class: "footer__input", placeholder: "Search Products" %>
-                    <%= submit_tag "Search", class: 'button button--flex' %>
-                  <% end %>
-  </div>
+<section class="products section" id="products">
+  <h2 class="section__title section__title-gradient products__line">
+    Products
+  </h2>
+</section>
+
+<div class="footer__content" id="searchbar">
+  <%= form_tag products_path, :method => 'get', class: "footer__form" do %>
+    <%= text_field_tag :search, params[:search], class: "footer__input", placeholder: "Search Products" %>
+    <%= submit_tag "Search", class: 'button button--flex' %>
+  <% end %>
+</div>
+
 <br>
-  <div class="row">
 
-
-    <% @products.each do |product| %>
-      <div class="col-md-4 mb-3">
-            <div class="card">
+<div class="product-section">
+  <section class="products section" id="products">
+    <div class="footer__content" id="searchbar">
+      <div class="products__container container grid">
+        <% @products.each do |product| %>
+          <article class="products__card">
+            <div class="products__content">
               <%= link_to product_path(product) do %>
-                <%= cl_image_tag product.photo.key, crop: :fill, width: 400, height: 300, class:"card-img-top", alt:"Product image"%>
+                <%= cl_image_tag product.photo.key, width: 400, height: 300,crop: :pad, class:"card-img-top; products__img", alt:"Product image", id: "user_prodc" %>
               <% end %>
-                <div class="card-body">
-                  <h5 class="card-title"><%= link_to product.name, product_path(product) %></h5>
-                  <div class="price-info d-flex justify-content-between">
-                    <p class="card-text"><%= number_to_currency(product.price) %></p>
-                    <%= link_to product_path(product) do %>
-                        <i class="fas fa-info-circle fa-lg" id='info-button'></i>
-                    <% end %>
-                  </div>
+              <h3 class="products__title"><%= product.name %></h3>
+              <span class="products__price"><%= number_to_currency(product.price) %></span>
+              <button class="button button--flex products__button">
+                <i class="ri-shopping-bag-line button__icon"></i>
+              </button>
             </div>
-          </div>
+          </article>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  </section>
 </div>
