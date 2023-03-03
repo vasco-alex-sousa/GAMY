@@ -6,7 +6,7 @@
     <div>
       <h5> <%= @product.name %> </h5>
       <p><%= @product.description %></p>
-      <p>Average Rating: <%= @product.average_rating.present? ? @product.average_rating : 'N/A' %></p>
+      <p>Average Rating: <strong> <%= @product.average_rating.present? ? @product.average_rating : 'N/A' %></strong></p>
     </div>
     <div class="card-product-profile-price">
       <% if @product.user %>
@@ -43,15 +43,24 @@
 <p></p>
 <p></p>
 
-
-<h2>Book Dates</h2>
+<section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+  <h2>Book Dates</h2>
+</section>
 
   <% if @bookings.any? %>
-  <h3>Future Bookings</h3>
+<section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+  <h4>Future Bookings</h4>
+</section>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
     <% @bookings.order(start_date: :asc).each do |booking| %>
+  <p></p>
   <div class="bookings" style="margin: 0 25%;">
     <% if booking.user.photo.attached? %>
-      <%= link_to cl_image_tag(booking.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;", class: "user-image"), user_path(booking.user) %>
+      <%= link_to cl_image_tag(booking.user.photo.key, crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", 'aria-expanded': false, style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"), user_path(booking.user) %>
     <% else %>
       <%= link_to image_tag("https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", 'aria-expanded': false, style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"), user_path(booking.user) %>
     <% end %>
@@ -60,8 +69,8 @@
   </div>
 
   <div class="bookings-actions" style="margin: 0 20%;">
-    <p>Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
-    <p>End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+    <p>Start date: <strong><%= booking.start_date.strftime("%B %d, %Y") %></strong></p>
+    <p>End date: <strong><%= booking.end_date.strftime("%B %d, %Y") %></strong></p>
   </div>
 </div>
   <% end %>
@@ -83,16 +92,18 @@
           </ul>
         </div>
       <% end %>
+<p></p>
+
 <div class="form-group" style="margin: 0 20%;">
         <%= f.label :start_date %>
         <%= f.date_field :start_date, class: "form-control" %>
       </div>
-
+      <p> </p>
       <div class="form-group" style="margin: 0 20%;">
         <%= f.label :end_date %>
         <%= f.date_field :end_date, class: "form-control" %>
       </div>
-
+      <p> </p>
       <div style="margin: 20px 20%; display: flex; justify-content: center;">
         <%= f.submit "Book", class: 'button button--flex'  %>
       </div>
@@ -106,7 +117,12 @@
 <% end %>
 <p> </p>
 
-<h2>Reviews</h2>
+<section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+  <h2>Reviews</h2>
+</section>
+
+<div class="reviews" style="margin: 0 15%;">
+
 <% if current_user != @product.user %>
     <% if @product.bookings.any? { |booking| booking.user == current_user && booking.end_date < Date.today } %>
       <% unless @product.reviews.exists?(user_id: current_user.id) %>
@@ -123,36 +139,43 @@
 
 <% if @product.reviews.any? %>
   <% @product.reviews.order(created_at: :asc).each do |review| %>
-    <div class="card">
+    <div class="card mb-3" style="border-radius: 20px;">
       <div class="card-body">
         <div class="row">
-          <div class="col">
-
-            <p><strong>User:</strong> <%= review.user.email.split('@').first %></p>
+          <div class="col-3">
+            <p><strong>User:</strong></p>
+            <p><%= review.user.email.split('@').first %></p>
           </div>
-          <div class="col">
-            <p><strong>Rating:</strong> <%= review.rating %></p>
+          <div class="col-3">
+            <p><strong>Rating:</strong></p>
+            <p><%= review.rating %></p>
           </div>
-          <div class="col">
-            <p><strong>Comment:</strong> <%= review.comment %></p>
+          <div class="col-6">
+            <p><strong>Comment:</strong></p>
+            <p><%= review.comment %></p>
           </div>
         </div>
-          <p><strong>Review date:</strong> <%= review.created_at.strftime("%B %d, %Y") %></p>
+        <div class="row">
+          <div class="col-6">
+            <p><strong>Review date:</strong></p>
+            <p><%= review.created_at.strftime("%B %d, %Y") %></p>
+          </div>
         </div>
+      </div>
     </div>
   <% end %>
 <% else %>
   <p>No reviews yet for this Product.</p>
 <% end %>
-
+</div>
 
 <style>
   .card-product {
   overflow: hidden;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #363A4E;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 20px;
+
 }
 
 .card-product > img {
@@ -224,11 +247,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #363A4E;
   padding: 8px 16px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 20px;
 }
 
 .bookings .bookings-content {
@@ -285,4 +307,170 @@ h3{
  position:relative;
  top:4px;
  font-size:20px;
+}
+
+body {
+  background-color: #24273A;
+  padding-top: 100px;
+}
+
+/* New booking */
+#new_booking{
+ position:relative;
+ top:8px;
+}
+
+/* Column 6/12 */
+.card-body .col-6{
+ transform:translatex(149px) translatey(0px);
+  border-radius: 20px;
+}
+
+/* Card body */
+.reviews .card .card-body{
+ column-count:2;
+ display:inline-block;
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Column 3/12 */
+.card-body .col-3{
+ transform:translatex(102px) translatey(-3px);
+}
+
+.card {
+  background-color: #363A4D;
+}
+
+.card-body {
+  color: white;
+  border-radius: 20px;
+}
+
+.card-body strong {
+  font-weight: bold;
+}
+
+/* Paragraph */
+.card .card-body .row .col-3 p{
+ text-align:center;
+}
+
+/* Paragraph */
+.card .card-body .row .col-6 p{
+ text-align:center;
+}
+
+/* Paragraph */
+.card-product-infos div p{
+ font-size:14px;
+}
+
+/* Heading */
+.card-product-infos div h5{
+ font-size:25px;
+ position:relative;
+ top:-6px !important;
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Heading */
+.card-product-infos .card-product-profile-price h5{
+ transform:translatex(0px) translatey(0px);
+ top:4px !important;
+ left:-1px;
+ font-size:23px;
+}
+
+/* Division */
+.card-product .card-product-infos div{
+ top:0px !important;
+}
+
+/* Card product infos */
+.card-product .card-product-infos{
+ height:140px;
+ overflow:visible;
+}
+
+/* Heading */
+.card-product .card-product-infos .card-product-profile-price h5{
+ bottom:auto !important;
+}
+
+/* User image */
+.card-product-profile-price a .user-image{
+ left:28px;
+ top:5px;
+}
+
+/* User image */
+.card-product .card-product-infos .card-product-profile-price a .user-image{
+ right:auto !important;
+}
+
+/* Strong Tag */
+.card-body .row .col-6 p strong{
+ position:relative;
+ top:0px;
+}
+
+/* Paragraph */
+p{
+ text-align:center;
+}
+
+/* Paragraph */
+.card-product-infos div p{
+ text-align:left;
+}
+
+/* Booking start date */
+#booking_start_date{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+/* Booking end date */
+#booking_end_date{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+/* Label */
+#new_booking .form-group label{
+ position:relative;
+ left:30px;
+}
+
+/* Strong Tag */
+.card-body .row .col-6 p strong{
+ top:-2px !important;
+}
+
+/* Strong Tag */
+.reviews .card .card-body .row .col-6 p strong{
+ bottom:auto !important;
+}
+
+/* Paragraph */
+.card-body .col-6 p{
+ position:relative;
+ top:-1px;
+}
+
+/* Product img */
+.card-product .product-img{
+ border-top-left-radius:0%;
+ border-top-right-radius:0%;
+ border-bottom-left-radius:0%;
+ border-bottom-right-radius:0%;
+ display:inline-block;
+ transform:translatex(0px) translatey(0px) !important;
+ position:relative;
+ top:-4px;
 }

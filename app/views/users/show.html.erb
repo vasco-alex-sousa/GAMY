@@ -1,203 +1,466 @@
-<!-- USER INFO -->
-<section class="user-profile section grid" id="user-profile">
-  <h2 class="section__title section__title-gradient">User Profile</h2>
-  <div class="user-profile__container container grid">
-    <div class="user-profile__content grid">
-      <% if @user.photo.attached? %>
-        <%= cl_image_tag @user.photo.key, alt:"profile image", class:"user-profile__img", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
-      <% else %>
-        <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt:"profile image", class:"user-profile__img", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
-      <% end %>
-      <% if @user == current_user %>
-        <%= link_to "Edit Profile", edit_user_registration_path, class:"user-profile__edit-link" %>
-      <% end %>
-      <h3 class="user-profile__title"><%= @user.email.split('@').first %> - <%= @user.city %>, <%= @user.country %></h3>
-      <ul class="user-profile__list">
-        <li class="user-profile__item"><strong>Reviews:</strong>
-          <% if @user.products.any? %>
-            <% sum = 0 %>
-            <% count = 0 %>
-            <% @user.products.each do |product| %>
-              <% if product.reviews.any? %>
-                <% sum += product.average_rating.to_f %>
-                <% count += 1 %>
+        <section class="user-profile section grid" id="user-profile">
+        <section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+          <h1>User Profile</h1>
+        </section>
+          <div class="user-profile__container container grid">
+            <div class="user-profile__content grid">
+              <% if @user.photo.attached? %>
+                <%= cl_image_tag @user.photo.key, class:"user-profile__img rounded-circle", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
+              <% else %>
+                <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", class:"user-profile__img rounded-circle", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
               <% end %>
-            <% end %>
-            <% if count > 0 %>
-              <%= content_tag :li, class:"user-profile__item" do %>
-                <strong>Overall average rating:</strong> <%= (sum/count).round(2) %>
-              <% end %>
-            <% else %>
-              <%= content_tag :li, class:"user-profile__item" do %>
-                There are no ratings for this user's products.
-              <% end %>
-            <% end %>
-          <% else %>
-            <%= content_tag :li, class:"user-profile__item" do %>
-              This user has no listed products.
-            <% end %>
-          <% end %>
-        </li>
-        <li class="user-profile__item"><strong>Email:</strong> <%= @user.email %></li>
-        <li class="user-profile__item"><strong>Phone Number:</strong> <%= @user.phone_number %></li>
-        <li class="user-profile__item"><strong>City:</strong> <%= @user.city %></li>
-        <li class="user-profile__item"><strong>District:</strong> <%= @user.district %></li>
-        <li class="user-profile__item"><strong>Country:</strong> <%= @user.country %></li>
-        <li class="user-profile__item"><strong>Account Created:</strong> <%= @user.created_at.to_date %></li>
-        <li class="user-profile__item"><strong>Number of Listings:</strong> <%= @user.products.count %></li>
-      </ul>
-    </div>
-  </div>
+              <div>
+                <% if @user == current_user %>
+                  <%= link_to "Edit Profile", edit_user_registration_path, class:"user-profile__edit-link" %>
+                <% end %>
+                <h3 class="user-profile__title"><%= @user.email.split('@').first %> - <%= @user.city %>, <%= @user.country %></h3>
+                <ul class="user-profile__list">
+                  <li class="user-profile__item">
+                    <% if @user.products.any? %>
+                      <% sum = 0 %>
+                      <% count = 0 %>
+                      <% @user.products.each do |product| %>
+                        <% if product.reviews.any? %>
+                          <% sum += product.average_rating.to_f %>
+                          <% count += 1 %>
+                        <% end %>
+                      <% end %>
+                      <% if count > 0 %>
+                        <%= content_tag :li, class:"user-profile__item" do %>
+                          <strong>Overall average rating:</strong> <%= (sum/count).round(2) %>
+                        <% end %>
+                      <% else %>
+                        <%= content_tag :li, class:"user-profile__item" do %>
+                          N/A
+                        <% end %>
+
+                      <% end %>
+                    <% else %>
+                      <%= content_tag :li, class:"user-profile__item" do %>
+                        This user has no listed products.
+                      <% end %>
+                    <% end %>
+                  </li>
+                  <li class="user-profile__item"><strong>Email:</strong> <%= @user.email %></li>
+                  <li class="user-profile__item"><strong>Phone Number:</strong> <%= @user.phone_number %></li>
+                  <li class="user-profile__item"><strong>City:</strong> <%= @user.city %></li>
+                  <li class="user-profile__item"><strong>District:</strong> <%= @user.district %></li>
+                  <li class="user-profile__item"><strong>Country:</strong> <%= @user.country %></li>
+                  <li class="user-profile__item"><strong>Account Created:</strong> <%= @user.created_at.to_date %></li>
+                  <li class="user-profile__item"><strong>Number of Listings:</strong> <%= @user.products.count %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+  <h3>Listings</h3>
 </section>
 
 
-<!-- USER LISTINGS -->
-<% if @listings.nil? %>
-  <p>No listings found.</p>
-<% else %>
-  <div class="d-flex profile-flex">
-    <div>
-        <div class="card-deck">
-        <div class="">
-        <h2>My Listings</h2>
+
+<%#------------------------------------------------------- listings section --------------------------------------------------------- %>
+
+<div class="listings-div">
+  <div class="eachlisting">
+    <% if @listings.nil? %>
+      <p>No listings found.</p>
+    <% else %>
+      <div class="card-deck">
         <% @listings.each do |listing| %>
-          <!-- Listing card -->
-
-            <div class="flex-item-1">
-              <div class="card shadow-sm" style="width: 18rem;">
-                <% if listing.photo.attached? %>
-                  <%= cl_image_tag listing.photo.key, alt:"product image", class:"card-img-top" %>
-                <% else %>
-                  <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt:"product image", class:"card-img-top" %>
+          <div class="card shadow-sm">
+            <% if listing.photo.attached? %>
+              <%= cl_image_tag listing.photo.key, alt:"product image", class:"card-img-top" %>
+            <% else %>
+              <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt:"product image", class:"card-img-top" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to listing.name, product_path(listing) %></h5>
+              <% if listing.reviews.any? %>
+                <% sum = 0 %>
+                <% count = 0 %>
+                <% listing.reviews.each do |review| %>
+                  <% sum += review.rating.to_f %>
+                  <% count += 1 %>
                 <% end %>
-                <div class="card-body">
-                  <h5 class="card-title"><%= link_to listing.name, product_path(listing) %></h5>
-                  <% if listing.reviews.any? %>
-                    <% sum = 0 %>
-                    <% count = 0 %>
-                    <% listing.reviews.each do |review| %>
-                      <% sum += review.rating.to_f %>
-                      <% count += 1 %>
-                    <% end %>
-                    <% if count > 0 %>
-                      <p class="card-text">Rating: <%= (sum/count).round(2) %></p>
-                    <% end %>
-                  <% end %>
-                  <p class="card-text"><%= link_to listing.product_type, products_path(product_type: listing.product_type) %></p>
-                  <p class="card-text">Price per day: <%= listing.price %>€</p>
-                  <% if listing.user_id == current_user.id %>
-                    <%= link_to "Edit", edit_product_path(listing), class: "btn btn-primary" %>
-                    <%= link_to "Delete", product_path(listing.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
-                  <% end %>
-                </div>
-              </div>
+                <% if count > 0 %>
+                  <p class="card-text">Rating: <%= (sum/count).round(2) %></p>
+                <% end %>
+              <% end %>
+              <p class="card-text"><%= link_to listing.product_type, products_path(product_type: listing.product_type) %></p>
+              <p class="card-text">Price per day: <%= listing.price %>€</p>
+              <% if listing.user_id == current_user.id %>
+                <%= link_to "Edit", edit_product_path(listing), class: "btn btn-primary" %>
+                <%= link_to "Delete", product_path(listing.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>    <%# close eachlistting %>
 
-
-              <% bookings = listing.bookings.where("end_date >= ?", Date.today) %>
+      <div class="eachbookinglisting">
+            <% bookings = listing.bookings.where("end_date >= ?", Date.today) %>
 
               <% bookings.each do |booking| %>
                 <% if booking.product.user == current_user %>
                   <% if bookings.any? %>
-                    <h3>Bookings for your Listing</h3>
-                    <div class="card mb-3">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-2">
-                            <% if booking.user.photo.attached? %>
-                              <%= link_to cl_image_tag(booking.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
-                            <% else %>
-                              <%= link_to image_tag("https://www.jumpplus.com/web/image/product.template/25452/image_1024?unique=c11fb7b", alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
-                            <% end %>
-                            <%= link_to booking.user.email.split('@').first, user_path(booking.user) %>
-                          </div>
-                          <div class="col-md-8">
-                            <p>Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
-                            <p>End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
-                            <p>Total price: <%= (booking.end_date - booking.start_date).to_i * listing.price %>€</p>
-                          </div>
-                          <div class="col-md-2">
-                            <%= link_to "Cancel Booking", product_booking_path(listing, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
-                          </div>
+                  <section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+                    <h4>Bookings for this Listing</h4>
+                  </section>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <% if booking.user.photo.attached? %>
+                            <%= link_to cl_image_tag(booking.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
+                          <% else %>
+                            <%= link_to image_tag("https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
+                          <% end %>
+                          <%= link_to booking.user.email.split('@').first, user_path(booking.user) %>
+                        </div>
+                        <div class="col-md-8">
+                          <p>Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
+                          <p>End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+                          <p>Total price: <%= (booking.end_date - booking.start_date).to_i * listing.price %>€</p>
+                        </div>
+                        <div class="col-md-2">
+                          <%= link_to "Cancel Booking", product_booking_path(listing, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
                         </div>
                       </div>
                     </div>
-                    <p>No bookings for this listing.</p>
-                  <% end %>
-                <% end %>
+                  </div>
               <% end %>
-            </div>
-          <div></div>
-
+            <% end %>
           <% end %>
-          </div>
-        </div>
-    </div>
+        <% end %>
+      <% end %>
 
-    <div>
-      <div class="flex-item-2">
-          <div class="card-deck">
-            <h2>My Bookings</h2>
-            <% if @user == current_user %>
-              <% @bookings.each do |booking| %>
-                <% if @bookings.nil? %>
-                  <p>No bookings found.</p>
-                  <% else %>
-                    <div class="card shadow-sm" style="width: 18rem;">
-                      <% if booking.product.photo.attached? %>
-                        <%= cl_image_tag booking.product.photo.key, alt:"product image", class:"card-img-top" %>
-                      <% else %>
-                        <%= image_tag "<https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg>", alt:"product image", class:"card-img-top" %>
-                      <% end %>
-                      <div class="card-body">
-                        <h5 class="card-title"><%= link_to booking.product.name, product_path(booking.product) %></h5>
-                        <p class="card-text">Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
-                        <p class="card-text">End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
-                        <p class="card-text">Total price: <%= (booking.end_date - booking.start_date).to_i * booking.product.price %>€</p>
-                        <% if booking.product.user.photo.attached? %>
-                          <%= link_to cl_image_tag(booking.product.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
-                        <% else %>
-                          <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-                        <% end %>
-                        <%= link_to booking.product.user.email.split('@').first, user_path(booking.product.user) %>
-
-                        <%= link_to "Cancel Booking", product_booking_path(booking.product, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% end %>
-          </div>
-        </div>
-
+      </div>
+      </div>
     </div>
   </div>
 
+  <div class="card-deck">
+        <% if @user == current_user %>
+          <section class="section__title section__title-gradient products__line" style="background-image: linear-gradient(180deg, rgba(162,159,249,1) 0%, rgba(130,141,255,1) 0%, rgba(131,79,218,1) 100%);">
+          <h3>My Bookings</h3>
+        </section>
+        <% end %>
+<div class="allbookings">
+  <div class="eachbooking">
+    <% @bookings.each do |booking| %>
+      <% if @user == current_user %>
+          <% if @bookings.nil? %>
+            <p>No bookings found.</p>
+          <% else %>
+          <div class="card shadow-sm mt-4" style="width: 18rem;">
+          <% if booking.product.photo.attached? %>
+            <%= cl_image_tag booking.product.photo.key, alt:"product image", class:"card-img-top" %>
+          <% else %>
+            <%= image_tag "<https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg>", alt:"product image", class:"card-img-top" %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to booking.product.name, product_path(booking.product) %></h5>
+          <% if @booking %>
+            <p class="card-text">Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
+            <p class="card-text">End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+            <p class="card-text">Total price: <%= (booking.end_date - booking.start_date).to_i * booking.product.price %>€</p>
+            <% if booking.product.user.photo.attached? %>
+              <%= link_to cl_image_tag(booking.product.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
+            <% else %>
+              <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
+            <%= link_to booking.product.user.email.split('@').first, user_path(booking.product.user) %>
+          <% end %>
 
-
-
-
-
-
-
-
-<% end %>
-
-
-
-
-
-<% if @listings.nil? %>
-  <p>No listings found.</p>
-<% elsif @listings.any? { |listing| !listing.reviews.empty? } %>
-  <% sum = 0 %>
-  <% count = 0 %>
-  <% @listings.each do |listing| %>
-    <% if !listing.reviews.empty? %>
-      <% sum += listing.average_rating.to_f %>
-      <% count += 1 %>
+            <%= link_to "Cancel Booking", product_booking_path(booking.product, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-  <p><strong>Overall average rating:</strong> <%= (sum/count).round(2) %></p>
-<% else %>
-  <p>No reviews for this User</p>
 <% end %>
+  </div>
+</div>
+
+
+
+
+
+</div>
+
+<style>
+.allbookings {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listings-div{
+  width:100vw;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.eachlisting {
+  width: 25%;
+}
+
+.eachbookinglisting{
+  width:80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Grid */
+#user-profile .user-profile__container .grid{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+ background-color:#363a4e;
+}
+
+/* Image */
+#user-profile .grid img{
+ border-top-left-radius:0px;
+}
+
+/* List Item */
+#user-profile div li{
+ column-count:1;
+ height:23px;
+ position:relative;
+ top:0px;
+}
+
+/* Division */
+.user-profile__container .grid div{
+ column-count:3;
+ direction:ltr;
+}
+
+/* User profile */
+#user-profile{
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Grid */
+#user-profile .user-profile__container .grid{
+ height:234px;
+ width:100% !important;
+ min-width:0px;
+}
+
+/* Image */
+#user-profile .grid img{
+ text-align:left;
+ position:relative;
+ left:82px;
+ top:17px;
+}
+
+/* Link */
+#user-profile div a{
+ position:relative;
+ left:90px;
+ top:-8px;
+}
+
+/* Heading */
+#user-profile div h3{
+ position:relative;
+ left:21px;
+ top:-4px;
+}
+
+/* List Item */
+#user-profile .user-profile__container .grid div .user-profile__list li{
+ width:112% !important;
+}
+
+/* Image */
+#user-profile .grid img{
+ transform:translatex(314px) translatey(-9px);
+ left:-200px !important;
+ top:17px;
+}
+
+/* Link */
+#user-profile div a{
+ left:121px !important;
+ top:-8px;
+}
+
+/* Image */
+#user-profile .user-profile__container .grid img{
+ right:auto !important;
+}
+
+/* List Item */
+#user-profile div li{
+ margin-bottom:12px;
+}
+
+
+/* Image */
+#user-profile .grid img{
+ width:100px;
+ height:80px !important;
+}
+
+/* Link */
+#user-profile .user-profile__container .grid div a{
+ left:113px !important;
+ right:auto !important;
+ bottom:auto !important;
+}
+
+/* Link */
+#user-profile div a{
+ top:-3px !important;
+}
+
+/* Image */
+#user-profile .user-profile__container .grid img{
+ left:-211px !important;
+ right:auto !important;
+}
+
+/* Strong Tag */
+.user-profile__list .user-profile__item strong{
+ position:relative;
+ top:0px;
+}
+
+/* Heading */
+#user-profile div h3{
+ transform:translatex(-5px) translatey(35px);
+}
+
+/* Link */
+#user-profile .user-profile__container .grid div a{
+ left:109px !important;
+ top:13px !important;
+}
+
+/* Image */
+#user-profile .grid img{
+ top:26px !important;
+}
+
+/* Image */
+#user-profile .user-profile__container .grid img{
+ left:-207px !important;
+}
+
+/* Card deck */
+.card-deck{
+ text-align:center;
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Card */
+.card-deck .card{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+ background-color:#363a4e;
+}
+
+/* Card img top */
+.card-deck .card .card-img-top{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+/* Card */
+.card{
+ background-color:#363a4e;
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+/* Card img top */
+.card .card-img-top{
+ border-top-left-radius:20px;
+ border-top-right-radius:20px;
+ border-bottom-left-radius:20px;
+ border-bottom-right-radius:20px;
+}
+
+/* Link */
+.row a{
+ text-align:center;
+ position:relative;
+ top:37px;
+}
+
+/* Card body */
+.card .card-body{
+ text-align:center;
+}
+
+/* Image */
+#user-profile .grid img{
+ border-top-left-radius:20px !important;
+ border-top-right-radius:20px !important;
+ border-bottom-left-radius:20px !important;
+ border-bottom-right-radius:20px !important;
+}
+
+/* Image */
+.eachbookinglisting a img{
+ border-top-left-radius:20px !important;
+ border-top-right-radius:20px !important;
+ border-bottom-left-radius:20px !important;
+ border-bottom-right-radius:20px !important;
+}
+
+
+</style>
