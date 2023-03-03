@@ -110,3 +110,22 @@
   flex-direction: column;
   align-content: space-between;
 }
+
+#nav-menu ul{
+  transform:translatex(413px) translatey(3px);
+ }
+
+/* List Item */
+#nav-menu .nav__list li{
+  display:inline-block;
+  transform:translatex(0px) translatey(0px) !important;
+ }
+
+ /* Navbar Unknowndown */
+ #navbarDropdown{
+  bottom:-4px;
+  max-width:49px;
+  max-height:51px;
+  position:relative;
+  left:-25px;
+ }

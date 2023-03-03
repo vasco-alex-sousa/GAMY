@@ -195,3 +195,78 @@
 
 
 
+
+
+
+
+
+<!-- JESS WAS HERE-->
+<% bookings = listing.bookings.where("end_date >= ?", Date.today) %>
+
+          <% bookings.each do |booking| %>
+            <% if booking.product.user == current_user %>
+              <% if bookings.any? %>
+                <h3>Bookings for this Listing</h3>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <% if booking.user.photo.attached? %>
+                          <%= link_to cl_image_tag(booking.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
+                        <% else %>
+                          <%= link_to image_tag("https://www.jumpplus.com/web/image/product.template/25452/image_1024?unique=c11fb7b", alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
+                        <% end %>
+                        <%= link_to booking.user.email.split('@').first, user_path(booking.user) %>
+                      </div>
+                      <div class="col-md-8">
+                        <p>Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
+                        <p>End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+                        <p>Total price: <%= (booking.end_date - booking.start_date).to_i * listing.price %>€</p>
+                      </div>
+                      <div class="col-md-2">
+                        <%= link_to "Cancel Booking", product_booking_path(listing, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p>No bookings for this listing.</p>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="flex-item-2">
+          <div class="card-deck">
+            <h2>Bookings</h2>
+            <% @bookings.each do |booking| %>
+              <% if @user == current_user %>
+                  <% if @bookings.nil? %>
+                    <p>No bookings found.</p>
+                    <% else %>
+                  <div class="card shadow-sm" style="width: 18rem;">
+                  <% if booking.product.photo.attached? %>
+                    <%= cl_image_tag booking.product.photo.key, alt:"product image", class:"card-img-top" %>
+                  <% else %>
+                    <%= image_tag "<https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg>", alt:"product image", class:"card-img-top" %>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= link_to booking.product.name, product_path(booking.product) %></h5>
+                    <p class="card-text">Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
+                    <p class="card-text">End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+                    <p class="card-text">Total price: <%= (booking.end_date - booking.start_date).to_i * booking.product.price %>€</p>
+                    <% if booking.product.user.photo.attached? %>
+                      <%= link_to cl_image_tag(booking.product.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.product.user) %>
+                    <% else %>
+                      <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+                    <% end %>
+                    <%= link_to booking.product.user.email.split('@').first, user_path(booking.product.user) %>
+
+
+                    <%= link_to "Cancel Booking", product_booking_path(booking.product, booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
