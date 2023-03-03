@@ -1,143 +1,75 @@
 <!-- app/views/products/show.html.erb -->
-<div class="card mb-3">
-<h5 class="card-title"><%= @product.name %></h5>
-<%= cl_image_tag @product.photo.key, crop: :fill, class:"card-img-top img-fluid", alt:"Product image"%>
-    <style>
-      img {
-        object-fit: cover;
-        max-height: 300px;
-        width: 100%;
-      }
-  </style>
-    <p class="card-text"><%= @product.description %></p>
+
+<div class="card-product" style="margin: 0 20%;">
+  <%= cl_image_tag @product.photo.key, crop: :fill, class:"product-img", alt:"Product image"%>
+  <div class="card-product-infos">
+    <div>
+      <h5> <%= @product.name %> </h5>
+      <p><%= @product.description %></p>
+      <p>Average Rating: <%= @product.average_rating.present? ? @product.average_rating : 'N/A' %></p>
+    </div>
+    <div class="card-product-profile-price">
+      <% if @product.user %>
+        <%= link_to user_path(@product.user) do %>
+          <% if @product.user.photo.attached? %>
+            <%= cl_image_tag(@product.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;", class: "user-image") %>
+            <style>
+              .user-image {
+                border-radius: 50%;
+                object-fit: cover;
+                height: 50px;
+                width: 50px;
+              }
+            </style>
+          <% else %>
+            <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", 'aria-expanded': false, style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;" %>
+            <style>
+              img {
+                border-radius: 50%;
+                object-fit: cover;
+                height: 50px;
+                width: 50px;
+              }
+            </style>
+          <% end %>
+        <% end %>
+      <% end %>
+      <h5><%= @product.price %> €/day</h5>
+    </div>
   </div>
 </div>
 
-<% if @product.user %>
-  <%= link_to user_path(@product.user) do %>
-  <% if current_user.photo.attached? %>
-      <%= cl_image_tag @product.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"%>
-    <style>
-      img {
-        border-radius: 50%;
-        object-fit: cover;
-        height: 100px;
-        width: 100px;
-      }
-    </style>
-            <% else %>
-      <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-    <style>
-      img {
-        border-radius: 50%;
-        object-fit: cover;
-        height: 100px;
-        width: 100px;
-      }
-    </style>
-            <% end %>
-  <% end %>
-  <p>Listed by <strong><%= @product.user.email.split("@")[0] %></strong>.</p>
-<% end %>
+<p></p>
+<p></p>
+<p></p>
 
 
-<% if @product.user == current_user %>
-  <h2>Book Dates</h2>
+<h2>Book Dates</h2>
 
   <% if @bookings.any? %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Start date</th>
-          <th>End date</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @bookings.order(start_date: :asc).each do |booking| %>
-          <tr>
-            <td><%= booking.start_date %></td>
-            <td><%= booking.end_date %></td>
-            <td><%= booking.status %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
-  <h2>Reviews</h2>
-
-  <% if user_signed_in? && current_user != @product.user && @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' } %>
-    <%= render 'reviews/form', review: @review %>
-  <% end %>
-
-  <%= form_for [@product, @booking], url: product_bookings_path(@product) do |f| %>
-    <% if @booking.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
-        <ul>
-          <% @booking.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= f.label :start_date %>
-      <%= f.date_field :start_date, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :end_date %>
-      <%= f.date_field :end_date, class: "form-control" %>
-    </div>
-
-    <% if @booking.start_date.present? && @booking.start_date < Date.today %>
-      <div class="alert alert-danger" role="alert">Please select a future date.</div>
-    <% elsif @product.bookings.any? { |booking| (booking.start_date..booking.end_date).overlaps?(@booking.start_date..@booking.end_date) } %>
-      <div class="alert alert-warning" role="alert">Product already booked for that date.</div>
+  <h3>Future Bookings</h3>
+    <% @bookings.order(start_date: :asc).each do |booking| %>
+  <div class="bookings" style="margin: 0 25%;">
+    <% if booking.user.photo.attached? %>
+      <%= link_to cl_image_tag(booking.user.photo.key, crop: :fill, alt:"Product image", style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;", class: "user-image"), user_path(booking.user) %>
     <% else %>
-      <%= f.submit "Book", class: "btn btn-primary" %>
+      <%= link_to image_tag("https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", crop: :fill, class: "avatar dropdown-toggle", id: "navbarDropdown", 'aria-expanded': false, style:"max-width: 100px; max-height: 100px; margin-bottom: 10px;"), user_path(booking.user) %>
     <% end %>
-  <% end %>
+  <div class="bookings-content">
+    <p><small><%= link_to booking.user.email.split('@').first, user_path(booking.user) %></small></p>
+  </div>
 
-  <% if @product.reviews.any? %>
-    <% @product.reviews.each do |review| %>
-      <p><strong>Rating:</strong> <%= review.rating %></p>
-      <p><strong>Comment:</strong> <%= review.comment %></p>
-    <% end %>
-  <% else %>
-    <p>No reviews yet for this Product.</p>
+  <div class="bookings-actions" style="margin: 0 20%;">
+    <p>Start date: <%= booking.start_date.strftime("%B %d, %Y") %></p>
+    <p>End date: <%= booking.end_date.strftime("%B %d, %Y") %></p>
+  </div>
+</div>
   <% end %>
+  <% else %>
+    <p>No Bookings yet for this Product</p>
 <% end %>
 
 <% if @product.user != current_user %>
-  <h2>Bookings</h2>
-
-  <% if @bookings.any? %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Start date</th>
-          <th>End date</th>
-          <%# <th>Status</th> %>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @bookings.order(start_date: :asc).each do |booking| %>
-          <tr>
-            <td><%= booking.start_date %></td>
-            <td><%= booking.end_date %></td>
-            <%# <td><%= booking.status %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
 
   <% if user_signed_in? %>
     <%= form_for [@product, @booking], url: product_bookings_path(@product) do |f| %>
@@ -151,52 +83,206 @@
           </ul>
         </div>
       <% end %>
-
-      <div class="form-group">
+<div class="form-group" style="margin: 0 20%;">
         <%= f.label :start_date %>
         <%= f.date_field :start_date, class: "form-control" %>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" style="margin: 0 20%;">
         <%= f.label :end_date %>
         <%= f.date_field :end_date, class: "form-control" %>
       </div>
 
-      <%= f.submit "Book", class: "btn btn-primary" %>
+      <div style="margin: 20px 20%; display: flex; justify-content: center;">
+        <%= f.submit "Book", class: 'button button--flex'  %>
+      </div>
+
+
     <% end %>
   <% elsif current_user == @product.user %>
     <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-primary" %>
     <%= link_to "Delete this product", product_path(@product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
   <% end %>
-
-  <p> </p>
-
-  <h2>Reviews</h2>
-
-  <% if user_signed_in? && current_user != @product.user && @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' && booking.end_date < Date.today } %>
-    <%= render 'reviews/form', review: @review %>
-  <% end %>
-
-  <% if @review_date %>
-    <p>You can review this product after <%= @review_date.strftime("%B %d, %Y") %>.</p>
-  <% elsif @product.bookings.any? { |booking| booking.user == current_user && booking.status == 'approved' } %>
-    <% @booking = @product.bookings.where(user_id: current_user.id, status: 'approved').order(:start_date).first %>
-    <% if @booking.end_date < Date.today %>
-      <%= render 'reviews/form', review: @review %>
-    <% elsif @booking.end_date >= Date.today %>
-      <p>You can review this product after <%= @booking.end_date.strftime("%B %d, %Y") %>.</p>
-    <% end %>
-  <% else %>
-    <p>You need to book this product before you can review it.</p>
-  <% end %>
-
-
-  <% if @product.reviews.any? %>
-    <% @product.reviews.each do |review| %>
-      <p><strong>Rating:</strong> <%= review.rating %></p>
-      <p><strong>Comment:</strong> <%= review.comment %></p>
-    <% end %>
-  <% else %>
-    <p>No reviews yet for this Product.</p>
-  <% end %>
 <% end %>
+<p> </p>
+
+<h2>Reviews</h2>
+<% if current_user != @product.user %>
+    <% if @product.bookings.any? { |booking| booking.user == current_user && booking.end_date < Date.today } %>
+      <% unless @product.reviews.exists?(user_id: current_user.id) %>
+        <%= render 'reviews/form', review: @review = Review.new %>
+      <% end %>
+    <% elsif @product.bookings.any? { |booking| booking.user == current_user && booking.end_date >= Date.today } %>
+      <% @booking = @product.bookings.where(user_id: current_user.id, status: 'approved') %>
+        <p>You can review this product after the end of your Booking.</p>
+    <% else %>
+      <p>You need to book this product before you can review it.</p>
+    <% end %>
+<% end %>
+<p> </p>
+
+<% if @product.reviews.any? %>
+  <% @product.reviews.order(created_at: :asc).each do |review| %>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+
+            <p><strong>User:</strong> <%= review.user.email.split('@').first %></p>
+          </div>
+          <div class="col">
+            <p><strong>Rating:</strong> <%= review.rating %></p>
+          </div>
+          <div class="col">
+            <p><strong>Comment:</strong> <%= review.comment %></p>
+          </div>
+        </div>
+          <p><strong>Review date:</strong> <%= review.created_at.strftime("%B %d, %Y") %></p>
+        </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>No reviews yet for this Product.</p>
+<% end %>
+
+
+<style>
+  .card-product {
+  overflow: hidden;
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.card-product > img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-product h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.card-product p {
+  font-size: 12px;
+  opacity: .7;
+  margin: 0;
+  color: white;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.card-product-infos .card-product-user {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+}
+.card-product .card-product-infos div{
+ position:relative;
+ top:-8px;
+}
+
+/* Card product profile price */
+.card-product .card-product-infos .card-product-profile-price{
+ top:4px;
+ display:inline-block;
+ transform:translatex(0px) translatey(0px) !important;
+}
+
+/* Image */
+.card-product-profile-price a img{
+ position:relative;
+ right:-29px;
+}
+
+/* Division */
+.card-product .card-product-infos div{
+ padding-top:0px;
+ padding-bottom:10px;
+ padding-right:0px;
+}
+
+/* Product img */
+.card-product .product-img{
+ height:400px;
+ width:900px !important;
+}
+
+.bookings {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 8px 16px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.bookings .bookings-content {
+  flex-grow: 1;
+  padding: 0 24px;
+  color: white;
+}
+
+.bookings p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.bookings small {
+  color: #ccc;
+  font-weight: bold;
+}
+
+.bookings:hover .bookings-content {
+  color: #ccc;
+}
+
+/* Heading */
+h2{
+ position:relative;
+ transform:translatex(0px) translatey(0px);
+ text-align:center;
+}
+
+/* Heading */
+h3{
+ text-align:center;
+}
+
+/* Paragraph */
+.bookings .bookings-actions p{
+ position:relative;
+ left:127px;
+ bottom:0px;
+ top:0px;
+}
+
+/* Navbar Unknowndown */
+#navbarDropdown{
+ display:inline-block;
+ transform:translatex(0px) translatey(0px) !important;
+ position:relative;
+ top:8px;
+ left:8px;
+}
+
+/* Link */
+.bookings p a{
+ position:relative;
+ top:4px;
+ font-size:20px;
+}

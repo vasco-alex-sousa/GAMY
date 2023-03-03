@@ -4,6 +4,9 @@ class ReviewsController < ApplicationController
     @booking = Booking.find_by(user: current_user, product: @product)
     if @booking.present?
       @review = @booking.reviews.build(review_params)
+      @review.booking = @booking
+      @review.user = current_user
+      @review.product = @product
       if @review.save
         redirect_to product_path(@product)
       else
