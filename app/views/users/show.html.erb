@@ -154,9 +154,7 @@
               <% sum += review.rating.to_f %>
               <% count += 1 %>
             <% end %>
-
             <% if count > 0 %>
-
               <p class="card-text">Rating: <%= (sum/count).round(2) %></p>
             <% end %>
           <% end %>
@@ -168,10 +166,6 @@
           <% end %>
         </div>
       </div>
-
-
-
-      
         <% bookings = listing.bookings.where("end_date >= ?", Date.today) %>
 
           <% bookings.each do |booking| %>
@@ -182,7 +176,6 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-2">
-
                       <% if booking.user.photo.attached? %>
                         <%= link_to cl_image_tag(booking.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
                       <% else %>
@@ -243,63 +236,3 @@
     <% end %>
   </div>
 <% end %>
-
-
-
-<section class="case section grid" id="case">
-  <h2 class="section__title section__title-gradient">Listings</h2>
-
-  <div class="case__container container grid">
-    <% if @listings.nil? %>
-      <p class="case__description">No listings found.</p>
-    <% elsif @listings.any? { |listing| !listing.reviews.empty? } %>
-      <% sum = 0 %>
-      <% count = 0 %>
-      <% @listings.each do |listing| %>
-        <% if !listing.reviews.empty? %>
-          <% sum += listing.average_rating.to_f %>
-          <% count += 1 %>
-        <% end %>
-      <% end %>
-      <p class="case__description"><strong>Overall average rating:</strong> <%= (sum/count).round(2) %></p>
-    <% else %>
-      <p class="case__description">No reviews for this user.</p>
-    <% end %>
-
-    <div class="card-deck">
-      <% @listings.each do |listing| %>
-        <div class="card shadow-sm case__data" style="width: 18rem;">
-          <% if listing.photo.attached? %>
-            <%= cl_image_tag listing.photo.key, alt:"product image", class:"card-img-top case__img" %>
-          <% else %>
-            <%= image_tag "https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg", alt:"product image", class:"card-img-top case__img" %>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to listing.name, product_path(listing), class:"case__title" %></h5>
-            <% if listing.reviews.any? %>
-              <% sum = 0 %>
-              <% count = 0 %>
-              <% listing.reviews.each do |review| %>
-                <% sum += review.rating.to_f %>
-                <% count += 1 %>
-              <% end %>
-              <% if count > 0 %>
-                <p class="card-text case__description">Rating: <%= (sum/count).round(2) %></p>
-              <% end %>
-            <% end %>
-            <p class="card-text case__description"><%= link_to listing.product_type, products_path(product_type: listing.product_type), class:"case__text" %></p>
-            <p class="card-text case__description">Price per day: <%= listing.price %>€</p>
-            <% if listing.user_id == current_user.id %>
-              <%= link_to "Edit", edit_product_path(listing), class: "btn btn-primary case__button" %>
-              <%= link_to "Delete", product_path(listing.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger case__button" %>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</section>
-
-
-
-
