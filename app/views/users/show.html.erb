@@ -154,7 +154,9 @@
               <% sum += review.rating.to_f %>
               <% count += 1 %>
             <% end %>
+
             <% if count > 0 %>
+
               <p class="card-text">Rating: <%= (sum/count).round(2) %></p>
             <% end %>
           <% end %>
@@ -166,6 +168,10 @@
           <% end %>
         </div>
       </div>
+
+
+
+      
         <% bookings = listing.bookings.where("end_date >= ?", Date.today) %>
 
           <% bookings.each do |booking| %>
@@ -176,6 +182,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-2">
+
                       <% if booking.user.photo.attached? %>
                         <%= link_to cl_image_tag(booking.user.photo.key, alt: "user profile photo", class: "rounded-circle", style: "max-width: 50px; max-height: 50px;"), user_path(booking.user) %>
                       <% else %>
