@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :product
+  has_many :reviews, through: :product
 
   validate :booking_dates_available
 
